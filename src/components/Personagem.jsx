@@ -2,6 +2,9 @@
 // cabeça arredondada, olhos com íris grande, corpo alongado, disco azul no chão.
 // Cada um tem animação contínua (respira, pisca, gesto próprio) e versão miniatura (mini).
 
+import { useId } from 'react'
+import RIG from './rig.json'
+
 export const PELES = ['#FCE3D4', '#F8CDB5', '#F2C3A0', '#E8B48E', '#D99E76', '#C2865E', '#A66C47', '#8A5536', '#6E412A', '#55301F']
 export const CABELO_CORES = ['#2B2F3A', '#4A2F1F', '#6B4A33', '#8B5A3C', '#A87447', '#D9A55B', '#E9C988', '#9B9B9B', '#E6E2DC', '#3A3F5C']
 export const OLHO_CORES = ['#5A3A22', '#3A2616', '#3B6FB6', '#4C7A3A', '#2E7E86', '#6B6B6B']
@@ -377,7 +380,8 @@ function Item({ id, pele }) {
 
 /* =================== figura =================== */
 
-export default function Personagem({ id, spec, humor, size = 120, sombra = true, className = '', busto = false, mini = false, animado = true }) {
+export default function Personagem({ id, spec, humor, size = 120, sombra = true, className = '', busto = false, mini = false, animado = true, falando = false }) {
+  if (!spec && RIG[id]) return <Arte id={id} size={size} className={className} busto={busto} mini={mini} animado={animado} falando={falando} />
   const s = spec || GUIAS[id] || GUIAS.jesus
   const expressao = humor || s.expressao || 'feliz'
   const itens = s.itens || []
@@ -399,6 +403,46 @@ export default function Personagem({ id, spec, humor, size = 120, sombra = true,
       </g>
       <g transform={tCabeca}>
         <g className="p-cabeca"><Cabeca s={s} expressao={expressao} /></g>
+      </g>
+    </svg>
+  )
+}
+
+// Personagens principais: a arte original do projeto (public/personagens) com pálpebras e boca
+// refeitas por cima na cor da pele, para piscar e falar. Miniatura: corte no pescoço,
+// cabeça ampliada e corpo reduzido. Medidas em rig.json (gerado de arte-original/).
+function Arte({ id, size, className, busto, mini, animado, falando }) {
+  const r = RIG[id]
+  const uid = useId().replace(/:/g, '')
+  const { w, h, pescoco: p, cx, dist } = r
+  const vb = busto ? [cx - dist * 1.65, Math.max(0, (r.olhos[0][1] + r.olhos[0][3]) / 2 - dist * 1.55), dist * 3.3, dist * 3.3]
+    : mini ? [-w * 0.14, p - p * 1.3, w * 1.28, p * 1.3 + (h - p) * 0.6] : [0, 0, w, h]
+  const alturaPadrao = size * 1.75 // todos com a mesma altura visual, qualquer que seja a largura da arte
+  const [larg, alt] = busto ? [size, size] : [(alturaPadrao * vb[2]) / vb[3], alturaPadrao]
+  const img = <image href={`/personagens/${id}.webp`} width={w} height={h} />
+  return (
+    <svg viewBox={vb.join(' ')} width={larg} height={alt} className={`${animado ? 'p-anima' : ''} ${falando ? 'p-falando' : ''} ${className}`} role="img" aria-label={GUIAS[id]?.nome || id}>
+      <defs>
+        <clipPath id={`c${uid}`}><rect x={-w} y={-h} width={w * 3} height={h + p + 2} /></clipPath>
+        <clipPath id={`k${uid}`}><rect x={-w} y={p - 2} width={w * 3} height={h * 2} /></clipPath>
+      </defs>
+      <g transform={mini ? `translate(${cx} ${p}) scale(.6) translate(${-cx} ${-p})` : undefined}>
+        <g className="p-respira"><g clipPath={`url(#k${uid})`}>{img}</g></g>
+      </g>
+      <g transform={mini ? `translate(${cx} ${p}) scale(1.3) translate(${-cx} ${-p})` : undefined}>
+        <g className="p-art-cabeca">
+          <g clipPath={`url(#c${uid})`}>{img}</g>
+          {r.olhos.map(([x0, y0, x1, y1], i) => (
+            <g key={i} className="p-palpebra">
+              <ellipse cx={(x0 + x1) / 2} cy={(y0 + y1) / 2} rx={(x1 - x0) / 2 + 3} ry={(y1 - y0) / 2 + 3} fill={r.pele[i]} />
+              <path d={`M${x0 - 1} ${(y0 + y1) / 2 + 2}q${(x1 - x0) / 2 + 1} ${(y1 - y0) * 0.28} ${x1 - x0 + 2} 0`} stroke="#3A2618" strokeWidth={Math.max(2, dist * 0.05)} fill="none" strokeLinecap="round" />
+            </g>
+          ))}
+          <g className="p-boca-aberta">
+            <ellipse cx={r.boca[0]} cy={r.boca[1] + r.boca[2] * 0.3} rx={r.boca[2] * 0.55} ry={r.boca[2] * 0.45} fill="#6A2A24" />
+            <ellipse cx={r.boca[0]} cy={r.boca[1] + r.boca[2] * 0.55} rx={r.boca[2] * 0.32} ry={r.boca[2] * 0.17} fill="#E07A7A" />
+          </g>
+        </g>
       </g>
     </svg>
   )

@@ -12,27 +12,27 @@
     "semantic_hash": ""
   },
   "public/sw.js": {
-    "mtime": 1794583446.8832772,
-    "seen": 1794583992.6169696,
-    "ast_hash": "6c10053b21c541a74117ad2fab8be576",
+    "mtime": 1794588825.5549579,
+    "seen": 1794588929.135045,
+    "ast_hash": "2567bf5b564a742f8159ecb6e453bf40",
     "semantic_hash": ""
   },
   "src/App.jsx": {
-    "mtime": 1794585183.6553395,
-    "seen": 1794585392.022923,
-    "ast_hash": "2ca10bacff0c498425e5347717fe1da1",
+    "mtime": 1794589014.154266,
+    "seen": 1794590059.520887,
+    "ast_hash": "55462823b1f2f65024a971ffdfa9a277",
     "semantic_hash": ""
   },
   "src/lib.js": {
-    "mtime": 1794583447.013879,
-    "seen": 1794583992.6169696,
-    "ast_hash": "552d33e36f861a05fb1b2f794af6aba6",
+    "mtime": 1794588824.0064113,
+    "seen": 1794588929.135045,
+    "ast_hash": "21497a0900c56a53a879659d12b7b798",
     "semantic_hash": ""
   },
   "src/main.jsx": {
-    "mtime": 1794583446.9651175,
-    "seen": 1794583992.6169696,
-    "ast_hash": "e7841a553c56fd687471ff569b2519b6",
+    "mtime": 1794588825.0058515,
+    "seen": 1794588929.135045,
+    "ast_hash": "96279e53ed81563be286cee5ab3f036f",
     "semantic_hash": ""
   },
   "src/pages/Login.jsx": {
@@ -48,9 +48,9 @@
     "semantic_hash": ""
   },
   "src/pages/aluno/Aluno.jsx": {
-    "mtime": 1794588307.8258302,
-    "seen": 1794588322.2060695,
-    "ast_hash": "553a5e2bbe6f0d171408f89038663d19",
+    "mtime": 1794590009.2058878,
+    "seen": 1794590059.520887,
+    "ast_hash": "ed8ed4edf69bb84ac7db2d180eacd61b",
     "semantic_hash": ""
   },
   "src/pages/aluno/Licao.jsx": {
@@ -60,9 +60,9 @@
     "semantic_hash": ""
   },
   "vite.config.js": {
-    "mtime": 1794583368.2751381,
-    "seen": 1794583992.6169696,
-    "ast_hash": "f4b4176cc67d97465b3505ed4e606000",
+    "mtime": 1794588847.4054654,
+    "seen": 1794588929.135045,
+    "ast_hash": "6edb45c49adce9b73dbe88c8f8a9b57e",
     "semantic_hash": ""
   },
   "README.md": {
@@ -72,9 +72,9 @@
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1794585183.7466283,
-    "seen": 1794585392.0379105,
-    "ast_hash": "a594ffe836bb8ded3dc218de800604c5",
+    "mtime": 1794588825.8090398,
+    "seen": 1794588929.135045,
+    "ast_hash": "a02457c61de376a3b591d4752c07393f",
     "semantic_hash": ""
   },
   "public/arte/LEIA-ME.txt": {
@@ -90,15 +90,15 @@
     "semantic_hash": ""
   },
   "src/components/Icones.jsx": {
-    "mtime": 1794585291.513329,
-    "seen": 1794585392.022923,
-    "ast_hash": "27e90e2e5c517ec5a297f7bc77105369",
+    "mtime": 1794590624.8496542,
+    "seen": 1794590657.569069,
+    "ast_hash": "583fe14194baea7c27223e72f0662b09",
     "semantic_hash": ""
   },
   "src/components/Personagem.jsx": {
-    "mtime": 1794588249.4898376,
-    "seen": 1794588293.178501,
-    "ast_hash": "270bb6af6b2480a2e4c7d5a6bd2b4f76",
+    "mtime": 1794589421.432098,
+    "seen": 1794590059.520887,
+    "ast_hash": "8613709700c88d2c727ee82d93085102",
     "semantic_hash": ""
   },
   "src/pages/Galeria.jsx": {
@@ -111,6 +111,114 @@
     "mtime": 1794585070.4679549,
     "seen": 1794585392.022923,
     "ast_hash": "b7858d94dc6ab9bcc5febdb41246dece",
+    "semantic_hash": ""
+  },
+  "arte-original/recortar.py": {
+    "mtime": 1794589776.6528084,
+    "seen": 1794590059.520887,
+    "ast_hash": "5c8fcf36d7e6ef68a362294ea931b1e1",
+    "semantic_hash": ""
+  },
+  ".github/workflows/pages.yml": {
+    "mtime": 1794588847.8660543,
+    "seen": 1794588929.135045,
+    "ast_hash": "9f99bda12305bcbfdfc50436d5c8ebc9",
+    "semantic_hash": ""
+  },
+  "arte-original/15a0266b-image.jpg": {
+    "mtime": 1794588466.911472,
+    "seen": 1794588929.135045,
+    "ast_hash": "ef1303f362abf63791d0b54896e85662",
+    "semantic_hash": ""
+  },
+  "arte-original/4daa6a5c-image.jpg": {
+    "mtime": 1794588466.8931835,
+    "seen": 1794588929.135045,
+    "ast_hash": "941dea731ca63fdd24f0c5f6b0af19ef",
+    "semantic_hash": ""
+  },
+  "arte-original/5bb66c05-image.jpg": {
+    "mtime": 1794588466.9049518,
+    "seen": 1794588929.135045,
+    "ast_hash": "81859cb1f5d412a6f3642b9856418e44",
+    "semantic_hash": ""
+  },
+  "arte-original/d4102e0d-image.jpg": {
+    "mtime": 1794588466.8612895,
+    "seen": 1794588929.135045,
+    "ast_hash": "18bcd7eb80abd6fffccde56929ef3fdc",
+    "semantic_hash": ""
+  },
+  "arte-original/e8b4804e-image.jpg": {
+    "mtime": 1794588466.8841207,
+    "seen": 1794588929.135045,
+    "ast_hash": "97ca37c2c96b83ea2019b283f633d7bc",
+    "semantic_hash": ""
+  },
+  "arte-original/eb6eb0cf-image.jpg": {
+    "mtime": 1794588466.851685,
+    "seen": 1794588929.135045,
+    "ast_hash": "c765ce62d70e1e6ab6573b278ba70106",
+    "semantic_hash": ""
+  },
+  "arte-original/medir.py": {
+    "mtime": 1794589690.586572,
+    "seen": 1794590059.520887,
+    "ast_hash": "9a7e35a8cec2f347941211c44e0895c5",
+    "semantic_hash": ""
+  },
+  "arte-original/tirar_aureola.py": {
+    "mtime": 1794590098.9862263,
+    "seen": 1794590284.9031231,
+    "ast_hash": "04ceb18e9dc5d049faaa2f6b22f034c1",
+    "semantic_hash": ""
+  },
+  "src/components/rig.json": {
+    "mtime": 1794590239.2887895,
+    "seen": 1794590284.9031231,
+    "ast_hash": "77954986928db897de913a7c88deba61",
+    "semantic_hash": ""
+  },
+  "src/pages/Comparar.jsx": {
+    "mtime": 1794589013.6633506,
+    "seen": 1794590059.520887,
+    "ast_hash": "d6346ae55cb95794a7b9957361f92448",
+    "semantic_hash": ""
+  },
+  "public/personagens/agostinho.webp": {
+    "mtime": 1794590145.0477712,
+    "seen": 1794590284.9031231,
+    "ast_hash": "1cf52051157d99ffa0e005a449db9065",
+    "semantic_hash": ""
+  },
+  "public/personagens/carlo.webp": {
+    "mtime": 1794590133.3212175,
+    "seen": 1794590284.9031231,
+    "ast_hash": "c3765d670379c188d6db989fc008027f",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus.webp": {
+    "mtime": 1794590249.4033754,
+    "seen": 1794590284.9031231,
+    "ast_hash": "9cd0b24df8d519e2d331f036321ff7f5",
+    "semantic_hash": ""
+  },
+  "public/personagens/jose.webp": {
+    "mtime": 1794590239.2872505,
+    "seen": 1794590284.9031231,
+    "ast_hash": "868b6117550e5a14f542373287003400",
+    "semantic_hash": ""
+  },
+  "public/personagens/maria.webp": {
+    "mtime": 1794590232.7441947,
+    "seen": 1794590284.9031231,
+    "ast_hash": "c38d3668d926eaa826c841a77495f17f",
+    "semantic_hash": ""
+  },
+  "public/personagens/pedro.webp": {
+    "mtime": 1794590166.6018887,
+    "seen": 1794590284.9031231,
+    "ast_hash": "1ed13476818726edd3393560bf83cc28",
     "semantic_hash": ""
   }
 }

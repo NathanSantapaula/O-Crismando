@@ -1,5 +1,6 @@
 # Recorta o fundo das artes originais e gera public/personagens/<id>.webp e <id>-busto.webp
 import sys
+from collections import Counter
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter
 
@@ -19,14 +20,17 @@ LIMITE = 18  # baixo: a pele clara fica perto do fundo cinza
 
 def sem_fundo(im, apagar):
     im = im.convert('RGB')
-    fundo = im.getpixel((3, 3))
+    w0, h0 = im.size
+    borda = [im.getpixel((x, y)) for x in range(0, w0, 7) for y in (2, h0 - 3)] + [im.getpixel((x, y)) for y in range(0, h0, 7) for x in (2, w0 - 3)]
+    fundo = Counter(tuple(c // 6 * 6 for c in p) for p in borda).most_common(1)[0][0]  # cor mais comum na borda
     d = ImageDraw.Draw(im)
     for r in apagar:
         d.rectangle(r, fill=fundo)
     w, h = im.size
     sementes = [(x, y) for x in (0, w // 4, w // 2, 3 * w // 4, w - 1) for y in (0, h - 1)] + [(0, y) for y in range(0, h, 40)] + [(w - 1, y) for y in range(0, h, 40)]
     for s in sementes:
-        if im.getpixel(s) != CHAVE:
+        c = im.getpixel(s)
+        if c != CHAVE and sum(abs(c[i] - fundo[i]) for i in range(3)) < 40:  # só começa no fundo
             ImageDraw.floodfill(im, s, CHAVE, thresh=LIMITE)
     rgba = im.convert('RGBA')
     px = rgba.load()
@@ -51,6 +55,4 @@ for id, (arq, caixa, apagar, busto) in ARTES.items():
     orig = Image.open(AQUI / arq)
     ajuste = [(r[0] - caixa[0], r[1] - caixa[1], r[2] - caixa[0], r[3] - caixa[1]) for r in apagar]
     figura = sem_fundo(orig.crop(caixa), ajuste)
-    print(id, 'figura', salvar(figura, f'{id}.webp', 900))
-    ab = [(r[0] - busto[0], r[1] - busto[1], r[2] - busto[0], r[3] - busto[1]) for r in apagar]
-    print(id, 'busto', salvar(sem_fundo(orig.crop(busto), ab), f'{id}-busto.webp', 360))
+    print(id, 'figura', salvar(figura, f'{id}.webp', 1000))

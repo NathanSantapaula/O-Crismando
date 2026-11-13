@@ -74,3 +74,12 @@ button { touch-action: manipulation; user-select: none; -webkit-user-select: non
 @keyframes p-flutua { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
 @keyframes p-brilho { 0%,100% { filter: brightness(1) } 50% { filter: brightness(1.25) } }
 @media (prefers-reduced-motion: reduce) { .p-anima * { animation: none !important } }
+.p-anima .p-palpebra { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(0); animation: p-piscar 4.8s infinite; }
+@keyframes p-piscar { 0%,91%,100% { transform: scaleY(0) } 94% { transform: scaleY(1) } 97% { transform: scaleY(0) } }
+.p-palpebra { transform: scaleY(0); transform-box: fill-box; transform-origin: 50% 0; }
+.p-boca-aberta { opacity: 0; }
+.p-falando .p-boca-fechada { opacity: 0; }
+.p-falando .p-boca-aberta { opacity: 1; transform-box: fill-box; transform-origin: 50% 0; animation: p-falar .32s ease-in-out infinite alternate; }
+@keyframes p-falar { from { transform: scaleY(.25) } to { transform: scaleY(1) } }
+.p-anima .p-art-cabeca { animation: p-bob 3.4s ease-in-out infinite; }
+@keyframes p-bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }

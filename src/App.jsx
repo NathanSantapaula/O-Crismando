@@ -4,9 +4,11 @@ import Login from './pages/Login'
 import Aluno from './pages/aluno/Aluno'
 import Admin from './pages/admin/Admin'
 import Galeria from './pages/Galeria'
+import Comparar from './pages/Comparar'
 
 export default function App() {
   if (location.search.includes('galeria')) return <Galeria />
+  if (location.search.includes('comparar')) return <Comparar />
   const [sessao, setSessao] = useState(undefined)
   const [perfil, setPerfil] = useState(null)
 

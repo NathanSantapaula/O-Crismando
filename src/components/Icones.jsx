@@ -64,10 +64,10 @@ export function NavIcone({ tipo, size = 42 }) {
   const svg = c => <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true">{c}</svg>
   switch (tipo) {
     case 'inicio': return svg(<>
-      <path d="M10 22h28v18a5 5 0 0 1-5 5H15a5 5 0 0 1-5-5Z" fill="#FFC800" />
-      <path d="M4.5 22.5 22 8.6a3.2 3.2 0 0 1 4 0l17.5 13.9a3 3 0 0 1-3.7 4.7L24 14.6 8.2 27.2a3 3 0 0 1-3.7-4.7Z" fill="#F04E55" />
-      <path d="M22 1.5h4v6h3.5v3.8H26V15h-4v-3.7h-3.5V7.5H22Z" fill="#FFC800" />
-      <path d="M18.5 45V35.5a5.5 5.5 0 0 1 11 0V45Z" fill="#B05A2C" />
+      <path d="M24 1.5v10M20 5.2h8" stroke="#FFC800" strokeWidth="3.6" strokeLinecap="round" />
+      <rect x="10" y="23" width="28" height="22" rx="5" fill="#FFC800" />
+      <path d="M6.5 27 24 15.5 41.5 27" stroke="#F04E55" strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M19.5 45V36.5a4.5 4.5 0 0 1 9 0V45Z" fill="#B05A2C" />
     </>)
     case 'ranking': return svg(<>
       <path d="M24 3.5 40 9.5v12.8C40 33.5 33.2 41.6 24 45c-9.2-3.4-16-11.5-16-22.7V9.5Z" fill="#4FB4FF" />

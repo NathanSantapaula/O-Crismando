@@ -10,7 +10,7 @@ E:\O-Crismando
 ├─ public/
 │  ├─ manifest.webmanifest    instalar no celular
 │  ├─ sw.js                   service worker (cache do app)
-│  ├─ icon-192/512.png, capa.png   ícones e capa
+│  ├─ icon-192/512.png, jesus-abracos.png   ícones e a imagem do Jesus
 │  └─ arte/                   suas pinturas sacras (ver LEIA-ME.txt)
 ├─ src/
 │  ├─ lib.js                  cliente Supabase e utilitários

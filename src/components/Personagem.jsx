@@ -381,7 +381,8 @@ function Item({ id, pele }) {
 /* =================== figura =================== */
 
 export default function Personagem({ id, spec, humor, size = 120, sombra = true, className = '', busto = false, mini = false, animado = true, falando = false }) {
-  if (!spec && id) id = 'jesus'
+  // única imagem de Jesus do app: todo guia mostra a mesma arte
+  if (!spec && id) return <Marca size={Math.round(size * (busto ? 0.95 : 1.3))} className={className} largura />
   if (!spec && RIG[id]) return <Arte id={id} size={size} className={className} busto={busto} mini={mini} animado={animado} falando={falando} />
   const s = spec || GUIAS[id] || GUIAS.jesus
   const expressao = humor || s.expressao || 'feliz'
@@ -450,8 +451,10 @@ function Arte({ id, size, className, busto, mini, animado, falando }) {
 }
 
 /* ---------- marca do app: Jesus de braços abertos ---------- */
-export function Marca({ size = 40, className = '' }) {
-  return <img src={url('/jesus-abracos.png')} alt="Fidelingo" height={size} style={{ height: size, width: 'auto' }} className={className} />
+export function Marca({ size = 40, className = '', largura = false }) {
+  // largura: size é a largura (lugares de personagem); senão é a altura (ícone na barra)
+  const estilo = largura ? { width: size, height: 'auto' } : { height: size, width: 'auto' }
+  return <img src={url('/jesus-abracos.png')} alt="Jesus" style={estilo} className={`shrink-0 ${className}`} />
 }
 
 /* ---------- bandeira do Vaticano (simplificada) ---------- */

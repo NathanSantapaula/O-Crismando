@@ -51,7 +51,7 @@ export default function Login() {
   if (tela === 'inicio') return (
     <main className="app-h safe-t mx-auto flex max-w-md flex-col px-6 pb-4">
       <div className="flex flex-1 flex-col items-center justify-center text-center">
-        <div className="surge"><img src={url('/capa.png')} alt="" width="168" height="168" className="pula rounded-[40px] border-b-[6px] border-[#0A1118]" /></div>
+        <div className="surge"><Personagem id="jesus" size={200} className="pula" /></div>
         <h1 className="mt-7 text-5xl font-black tracking-tight text-sol">fidelingo</h1>
         <p className="mt-3 text-lg">Sua caminhada até a Crisma.</p>
       </div>

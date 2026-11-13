@@ -218,7 +218,14 @@ function Inicio({ encontros, feito, presenca, faltas, baus, abrir, carregar, cam
 export function No({ cor, ok, ativo, children, onClick, rotulo }) {
   return (
     <div className="relative">
-      {ativo && <svg className="pointer-events-none absolute -inset-[14px]" viewBox="0 0 108 100"><ellipse cx="54" cy="52" rx="50" ry="46" fill="none" stroke="#33475A" strokeWidth="9" /><path d="M54 6a50 46 0 0 1 50 46" fill="none" stroke={cor.no} strokeWidth="9" strokeLinecap="round" /></svg>}
+      {/* anel centrado em pixels fixos (sem transform, que o Safari do iPhone trata diferente):
+          botão 78x68 + sombra de 8px => centro em (39, 38); anel 106x98 => canto em (-14, -11) */}
+      {ativo && (
+        <svg className="pointer-events-none absolute" style={{ left: -14, top: -11 }} width="106" height="98" viewBox="0 0 106 98" aria-hidden="true">
+          <ellipse cx="53" cy="49" rx="48" ry="44" fill="none" stroke="#33475A" strokeWidth="8" />
+          <path d="M53 5a48 44 0 0 1 48 44" fill="none" stroke={cor.no} strokeWidth="8" strokeLinecap="round" />
+        </svg>
+      )}
       <button onClick={onClick} aria-label={rotulo + (ok ? ', concluída' : '')}
         className="relative grid h-[68px] w-[78px] place-items-center rounded-[50%] text-white transition-transform active:translate-y-[6px]"
         style={{ background: cor.no, boxShadow: `0 8px 0 ${cor.noEsc}` }}>

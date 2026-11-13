@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { X, Palette, Scissors, Smile, Shirt, Crown, Glasses, Sparkles, Shuffle } from 'lucide-react'
+import { X, Palette, Scissors, Smile, Shirt, Crown, Glasses, Sparkles, Shuffle, Shapes } from 'lucide-react'
 import { sb } from '../../lib'
 import { som } from '../../sons'
-import Boneco, { normalizar, OPCOES, NOMES, PELES, CORES_CABELO, CORES_OLHO, CORES_ROUPA, FUNDOS } from '../../components/Boneco'
+import Boneco, { normalizar, OPCOES, NOMES, PELES, CORES_CABELO, CORES_OLHO, CORES_ROUPA, FUNDOS, ESTILOS } from '../../components/Boneco'
 
 const ABAS = [
+  { id: 'formato', Icone: Shapes, nome: 'Formato' },
   { id: 'pele', Icone: Palette, nome: 'Pele e fundo' },
   { id: 'cabelo', Icone: Scissors, nome: 'Cabelo' },
   { id: 'rosto', Icone: Smile, nome: 'Rosto' },
@@ -17,7 +18,7 @@ const sorteia = l => l[Math.floor(Math.random() * l.length)]
 
 export default function Avatar({ perfil, onFim }) {
   const [b, setB] = useState(normalizar(perfil.avatar))
-  const [aba, setAba] = useState('pele')
+  const [aba, setAba] = useState('formato')
   const [pulo, setPulo] = useState(0)
   const [salvando, setSalvando] = useState(false)
   const mudar = patch => { som('selecionar'); setB(x => ({ ...x, ...patch })); setPulo(p => p + 1) }
@@ -25,7 +26,7 @@ export default function Avatar({ perfil, onFim }) {
   function surpresa() {
     som('bau'); setPulo(p => p + 1)
     setB(x => ({ ...x, pele: sorteia(PELES), olhos: sorteia(CORES_OLHO), expressao: sorteia(OPCOES.expressao), cabelo: sorteia(OPCOES.cabelo), corCabelo: sorteia(CORES_CABELO),
-      roupa: sorteia(OPCOES.roupa), corRoupa: sorteia(CORES_ROUPA), cabeca: sorteia(OPCOES.cabeca), rosto: sorteia(OPCOES.rosto), extra: sorteia(OPCOES.extra), fundo: sorteia(FUNDOS) }))
+      roupa: sorteia(OPCOES.roupa), formato: sorteia(OPCOES.formato), corpo: sorteia(OPCOES.corpo), olhar: sorteia(OPCOES.olhar), nariz: sorteia(OPCOES.nariz), corRoupa: sorteia(CORES_ROUPA), cabeca: sorteia(OPCOES.cabeca), rosto: sorteia(OPCOES.rosto), extra: sorteia(OPCOES.extra), fundo: sorteia(FUNDOS) }))
   }
   async function salvar() {
     setSalvando(true); som('concluir')
@@ -91,9 +92,26 @@ export default function Avatar({ perfil, onFim }) {
       </nav>
 
       <div className="flex-1 px-4 py-5">
+        {aba === 'formato' && <>
+          {/* estilos prontos: ponto de partida com personalidade */}
+          <section className="mb-7">
+            <h3 className="mb-3 text-lg font-black">Comece por um estilo</h3>
+            <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
+              {ESTILOS.map(e => (
+                <button key={e.nome} onClick={() => { som('bau'); setB(x => ({ ...x, ...e.b })); setPulo(p => p + 1) }}
+                  className="flex w-28 shrink-0 flex-col items-center overflow-hidden rounded-2xl border-2 border-b-4 border-line active:scale-95">
+                  <span className="w-full" style={{ background: e.b.fundo }}><Boneco spec={e.b} busto size={110} /></span>
+                  <span className="px-1 py-1.5 text-center text-xs font-extrabold leading-tight">{e.nome}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+          <Pecas titulo="Cabeça" campo="formato" cols={4} />
+          <Pecas titulo="Corpo" campo="corpo" cols={4} />
+        </>}
         {aba === 'pele' && <><Cores titulo="Tom da pele" lista={PELES} campo="pele" /><Cores titulo="Cor do fundo" lista={FUNDOS} campo="fundo" /></>}
         {aba === 'cabelo' && <><Pecas titulo="Penteado" campo="cabelo" /><Cores titulo="Cor do cabelo" lista={CORES_CABELO} campo="corCabelo" /></>}
-        {aba === 'rosto' && <><Pecas titulo="Expressão" campo="expressao" cols={4} /><Cores titulo="Cor dos olhos" lista={CORES_OLHO} campo="olhos" /></>}
+        {aba === 'rosto' && <><Pecas titulo="Expressão" campo="expressao" cols={4} /><Pecas titulo="Olhar" campo="olhar" cols={4} /><Pecas titulo="Nariz" campo="nariz" cols={4} /><Cores titulo="Cor dos olhos" lista={CORES_OLHO} campo="olhos" /></>}
         {aba === 'roupa' && <><Pecas titulo="Roupa" campo="roupa" /><Cores titulo="Cor da roupa" lista={CORES_ROUPA} campo="corRoupa" /></>}
         {aba === 'cabeca' && <Pecas titulo="Na cabeça" campo="cabeca" cols={4} />}
         {aba === 'detalhe' && <Pecas titulo="Detalhes do rosto" campo="rosto" cols={4} />}

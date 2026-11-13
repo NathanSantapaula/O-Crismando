@@ -9,6 +9,10 @@ export const CORES_ROUPA = ['#FFC800', '#FFFFFF', '#E0455F', '#3D8BFF', '#7FB83A
 export const FUNDOS = ['#FFC800', '#3D8BFF', '#E0455F', '#7FB83A', '#8B5CF6', '#FF8A3D', '#29B39A', '#F07CA8', '#1F2A33', '#E8EEF4']
 
 export const OPCOES = {
+  formato: ['redonda', 'quadrada', 'alta', 'larga'],
+  corpo: ['padrao', 'magro', 'forte', 'baixinho'],
+  olhar: ['normal', 'entediado', 'desconfiado', 'bravo', 'sonhador'],
+  nariz: ['bolinha', 'triangulo', 'batata', 'arrebitado'],
   cabelo: ['curto', 'topete', 'anime', 'cacheado', 'blackpower', 'longo', 'rabo', 'coque', 'trancas', 'moicano', 'raspado', 'careca'],
   expressao: ['feliz', 'radiante', 'piscando', 'determinado', 'apaixonado', 'surpreso', 'maroto', 'sono'],
   roupa: ['camiseta', 'moletom', 'jaqueta', 'time', 'tunica', 'gamer'],
@@ -17,6 +21,9 @@ export const OPCOES = {
   extra: ['nada', 'terco', 'cruz', 'capa', 'controle', 'skate', 'violao', 'microfone', 'mochila'],
 }
 export const NOMES = {
+  redonda: 'Redonda', quadrada: 'Quadrada', alta: 'Comprida', larga: 'Larga', padrao: 'Normal', magro: 'Magrelo', forte: 'Forte', baixinho: 'Baixinho',
+  normal: 'Normal', entediado: 'Entediado', desconfiado: 'Desconfiado', bravo: 'Bravo', sonhador: 'Sonhador',
+  bolinha: 'Bolinha', triangulo: 'Pontudo', batata: 'Batata', arrebitado: 'Arrebitado',
   curto: 'Curto', topete: 'Topete', anime: 'Espetado', cacheado: 'Cacheado', blackpower: 'Black power', longo: 'Longo', rabo: 'Rabo de cavalo', coque: 'Coque', trancas: 'Tranças', moicano: 'Moicano', raspado: 'Raspado', careca: 'Careca',
   feliz: 'Feliz', radiante: 'Radiante', piscando: 'Piscadinha', determinado: 'Determinado', apaixonado: 'Apaixonado', surpreso: 'Surpreso', maroto: 'Maroto', sono: 'Sono',
   camiseta: 'Camiseta', moletom: 'Moletom', jaqueta: 'Jaqueta', time: 'Camisa de time', tunica: 'Túnica de crisma', gamer: 'Colete gamer',
@@ -29,6 +36,7 @@ export const BONECO_PADRAO = {
   pele: PELES[2], olhos: CORES_OLHO[0], expressao: 'feliz',
   cabelo: 'curto', corCabelo: CORES_CABELO[1], roupa: 'camiseta', corRoupa: CORES_ROUPA[0],
   cabeca: 'nada', rosto: 'nada', extra: 'nada', fundo: FUNDOS[1],
+  formato: 'redonda', corpo: 'padrao', olhar: 'normal', nariz: 'bolinha',
 }
 
 // converte o avatar antigo (versão anterior do editor) para o novo
@@ -111,7 +119,6 @@ function Rosto({ b }) {
     <g>
       <Olhos x={62} cor={b.olhos} exp={e} /><Olhos x={98} cor={b.olhos} exp={e} />
       {e !== 'apaixonado' && <path d={sob} stroke={tom(b.corCabelo, 0.85)} strokeWidth="5" fill="none" strokeLinecap="round" />}
-      <path d="M78 82q2 6 4 0" stroke={sombra} strokeWidth="3" fill="none" strokeLinecap="round" />
       <ellipse cx="46" cy="88" rx="8" ry="5" fill="#F28B8B" opacity=".45" /><ellipse cx="114" cy="88" rx="8" ry="5" fill="#F28B8B" opacity=".45" />
       {boca}
       {(e === 'radiante' || e === 'piscando' || e === 'apaixonado') && <path d="M71 93h18" stroke="#fff" strokeWidth="3" />}
@@ -194,6 +201,38 @@ function ExtraFrente({ id }) {
   }
 }
 
+const CABECA = {
+  redonda: { x: 30, y: 16, width: 100, height: 98, rx: 44 },
+  quadrada: { x: 26, y: 18, width: 108, height: 96, rx: 20 },
+  alta: { x: 36, y: 0, width: 88, height: 114, rx: 34 },
+  larga: { x: 20, y: 26, width: 120, height: 88, rx: 40 },
+}
+// corpo: escala o tronco/braços/pernas em torno do pescoço
+const CORPO = { padrao: [1, 1], magro: [0.78, 1.08], forte: [1.28, 1], baixinho: [1.08, 0.82] }
+
+// pálpebras dão a "atitude" do olhar
+function Olhar({ b }) {
+  // cada pálpebra: área na cor da pele + só a linha da borda de baixo
+  const lid = (k, area, borda) => <g key={k}><path d={area} fill={b.pele} /><path d={borda} stroke="#2B211C" strokeWidth="3.5" fill="none" strokeLinecap="round" /></g>
+  const reta = (x, y) => lid(x, `M${x - 14} 56H${x + 14}V${y}H${x - 14}Z`, `M${x - 13} ${y}H${x + 13}`)
+  switch (b.olhar) {
+    case 'entediado': return <g>{reta(62, 73)}{reta(98, 73)}</g>
+    case 'sonhador': return <g>{reta(62, 69)}{reta(98, 69)}</g>
+    case 'desconfiado': return <g>{reta(62, 75)}{reta(98, 66)}</g>
+    case 'bravo': return <g>{lid(62, 'M46 54H78V70L46 62Z', 'M47 62 77 70')}{lid(98, 'M82 54H114V62L82 70Z', 'M83 70 113 62')}</g>
+    default: return null
+  }
+}
+function Nariz({ b }) {
+  const c = tom(b.pele, 0.8)
+  switch (b.nariz) {
+    case 'triangulo': return <path d="M80 76l-8 16h14Z" fill={c} />
+    case 'batata': return <ellipse cx="80" cy="86" rx="10" ry="8" fill={c} />
+    case 'arrebitado': return <path d="M76 80q2 10 10 8" stroke={c} strokeWidth="4" fill="none" strokeLinecap="round" />
+    default: return <path d="M78 82q2 6 4 0" stroke={c} strokeWidth="3" fill="none" strokeLinecap="round" />
+  }
+}
+
 export default function Boneco({ spec, size = 120, busto = false, fundo = false, className = '' }) {
   const b = normalizar(spec)
   const vb = busto ? '18 -8 124 124' : '0 -10 160 206'
@@ -204,16 +243,30 @@ export default function Boneco({ spec, size = 120, busto = false, fundo = false,
       {!busto && <ellipse cx="80" cy="190" rx="48" ry="7" fill="#000" opacity=".22" />}
       <ExtraAtras id={b.extra} b={b} />
       <CabeloAtras e={b.cabelo} c={b.corCabelo} />
-      <Corpo b={b} />
-      <Bracos b={b} />
-      <ExtraFrente id={b.extra} />
-      <circle cx="30" cy="72" r="10" fill={tom(b.pele, 0.92)} /><circle cx="130" cy="72" r="10" fill={tom(b.pele, 0.92)} />
-      <rect x="30" y="16" width="100" height="98" rx="44" fill={b.pele} />
+      <g transform={`translate(80 114) scale(${(CORPO[b.corpo] || CORPO.padrao).join(' ')}) translate(-80 -114)`}>
+        <Corpo b={b} />
+        <Bracos b={b} />
+        <ExtraFrente id={b.extra} />
+      </g>
+      {(() => { const h = CABECA[b.formato] || CABECA.redonda; return <><circle cx={h.x} cy="72" r="10" fill={tom(b.pele, 0.92)} /><circle cx={h.x + h.width} cy="72" r="10" fill={tom(b.pele, 0.92)} /></> })()}
+      <rect {...CABECA[b.formato] || CABECA.redonda} fill={b.pele} />
       <path d="M80 16h6c24 0 44 20 44 44v10c0 24-20 44-44 44h-6Z" fill="#000" opacity=".035" />
       <CabeloFrente e={b.cabelo} c={b.corCabelo} />
       <Rosto b={b} />
+      <Olhar b={b} />
+      <Nariz b={b} />
       <Rosto2 id={b.rosto} b={b} />
       <Chapeu id={b.cabeca} b={b} />
     </svg>
   )
 }
+
+// estilos prontos (personagens originais) para o aluno começar e ajustar
+export const ESTILOS = [
+  { nome: 'Sério de óculos', b: { formato: 'quadrada', corpo: 'magro', olhar: 'entediado', nariz: 'triangulo', cabelo: 'topete', corCabelo: '#1F1A1A', rosto: 'oculos', roupa: 'camiseta', corRoupa: '#FFFFFF', expressao: 'determinado', pele: '#F2B896', fundo: '#3D8BFF', cabeca: 'nada', extra: 'nada' } },
+  { nome: 'Agitada', b: { formato: 'redonda', corpo: 'baixinho', olhar: 'normal', nariz: 'arrebitado', cabelo: 'blackpower', corCabelo: '#4A2F1F', rosto: 'sardas', roupa: 'moletom', corRoupa: '#F07CA8', expressao: 'radiante', pele: '#9C5C3C', fundo: '#FFC800', cabeca: 'nada', extra: 'microfone' } },
+  { nome: 'Gamer cansado', b: { formato: 'larga', corpo: 'padrao', olhar: 'entediado', nariz: 'batata', cabelo: 'raspado', corCabelo: '#7A4A2A', rosto: 'nada', roupa: 'gamer', corRoupa: '#29B39A', expressao: 'sono', pele: '#E3A27C', fundo: '#8B5CF6', cabeca: 'fone', extra: 'controle' } },
+  { nome: 'Desconfiada', b: { formato: 'alta', corpo: 'magro', olhar: 'desconfiado', nariz: 'triangulo', cabelo: 'longo', corCabelo: '#8B5CF6', rosto: 'nada', roupa: 'jaqueta', corRoupa: '#1F2A33', expressao: 'maroto', pele: '#FFE3D1', fundo: '#E0455F', cabeca: 'nada', extra: 'nada' } },
+  { nome: 'Bravo do time', b: { formato: 'quadrada', corpo: 'forte', olhar: 'bravo', nariz: 'batata', cabelo: 'moicano', corCabelo: '#E0455F', rosto: 'curativo', roupa: 'time', corRoupa: '#7FB83A', expressao: 'determinado', pele: '#B9724D', fundo: '#FF8A3D', cabeca: 'nada', extra: 'nada' } },
+  { nome: 'Coroinha', b: { formato: 'redonda', corpo: 'baixinho', olhar: 'sonhador', nariz: 'bolinha', cabelo: 'cacheado', corCabelo: '#E5A84B', rosto: 'nada', roupa: 'tunica', corRoupa: '#FFFFFF', expressao: 'feliz', pele: '#F9CDB3', fundo: '#29B39A', cabeca: 'nada', extra: 'terco' } },
+]

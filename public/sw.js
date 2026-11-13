@@ -1,6 +1,6 @@
 // shortcut: cache só do shell (network-first); dados do Supabase sempre online
-const C = 'crismando-v1'
-self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(C).then(c => c.addAll(['./', 'icon.svg', 'manifest.webmanifest']))) })
+const C = 'fidelingo-v2'
+self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(C).then(c => c.addAll(['./', 'icon-192.png', 'manifest.webmanifest']))) })
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()))
 self.addEventListener('fetch', e => {
   const u = new URL(e.request.url)

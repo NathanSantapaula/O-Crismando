@@ -30,7 +30,7 @@ def olhos_brancos(im):
 
 rig = {}
 for id in BOCA:
-    im = Image.open(PASTA / f'{id}.webp').convert('RGBA'); w, h = im.size
+    im = Image.open(PASTA / f'{id}.png').convert('RGBA'); w, h = im.size
     olhos = CARLO if id == 'carlo' else olhos_brancos(im)
     (a, b), (c, e) = [((x0 + x1) / 2, (y0 + y1) / 2) for x0, y0, x1, y1 in olhos]
     cx, cy, dist = (a + c) / 2, (b + e) / 2, c - a

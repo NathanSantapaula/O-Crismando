@@ -7,8 +7,8 @@ import Galeria from './pages/Galeria'
 import Comparar from './pages/Comparar'
 
 export default function App() {
-  if (location.search.includes('galeria')) return <Galeria />
-  if (location.search.includes('comparar')) return <Comparar />
+  if (import.meta.env.DEV && location.search.includes('galeria')) return <Galeria />
+  if (import.meta.env.DEV && location.search.includes('comparar')) return <Comparar />
   const [sessao, setSessao] = useState(undefined)
   const [perfil, setPerfil] = useState(null)
 

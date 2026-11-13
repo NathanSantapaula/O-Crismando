@@ -83,3 +83,45 @@ button { touch-action: manipulation; user-select: none; -webkit-user-select: non
 @keyframes p-falar { from { transform: scaleY(.25) } to { transform: scaleY(1) } }
 .p-anima .p-art-cabeca { animation: p-bob 3.4s ease-in-out infinite; }
 @keyframes p-bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
+
+/* ---------- Jesus vivo (JesusVivo.jsx) ---------- */
+.jv * { transform-box: view-box; }
+.jv-respira { transform-origin: 190px 590px; animation: jv-respira 3.6s ease-in-out infinite; }
+.jv-cabeca { transform-origin: 190px 250px; animation: jv-cabeca 5s ease-in-out infinite; }
+.jv-braco-e { transform-origin: 148px 270px; animation: jv-braco-e 3.6s ease-in-out infinite; }
+.jv-braco-d { transform-origin: 232px 270px; animation: jv-braco-d 3.6s ease-in-out infinite; }
+.jv-chao { transform-origin: 190px 624px; }
+.jv-palpebra { transform-origin: center; transform: scaleY(0); transition: transform .07s; transform-box: fill-box; }
+.jv-pisca .jv-palpebra { transform: scaleY(1); }
+@keyframes jv-respira { 50% { transform: scaleY(1.012) translateY(-1px); } }
+@keyframes jv-cabeca { 0%,100% { transform: rotate(0); } 30% { transform: rotate(-2deg); } 70% { transform: rotate(2deg); } }
+@keyframes jv-braco-e { 50% { transform: rotate(-3deg); } }
+@keyframes jv-braco-d { 50% { transform: rotate(3deg); } }
+
+/* acenar: braço direito sobe e balança */
+.jv-acenar .jv-braco-d { animation: jv-aceno 1.1s ease-in-out infinite; }
+@keyframes jv-aceno { 0%,100% { transform: rotate(-62deg); } 50% { transform: rotate(-80deg); } }
+/* abençoar: braço direito ergue, segura, desce */
+.jv-abencoar .jv-braco-d { animation: jv-bencao 2.6s ease-in-out both; }
+.jv-abencoar .jv-cabeca { animation: jv-acena-cabeca 2.6s ease-in-out both; }
+@keyframes jv-bencao { 0% { transform: rotate(0); } 25%,75% { transform: rotate(-70deg); } 100% { transform: rotate(0); } }
+@keyframes jv-acena-cabeca { 25%,75% { transform: rotate(-4deg); } }
+/* alegria: pulinho com braços para cima */
+.jv-alegria .jv-todo { transform-origin: 190px 610px; animation: jv-pulo .7s ease-in-out infinite; }
+.jv-alegria .jv-braco-e { animation: jv-bracos-e .7s ease-in-out infinite; }
+.jv-alegria .jv-braco-d { animation: jv-bracos-d .7s ease-in-out infinite; }
+.jv-alegria .jv-chao { animation: jv-chao .7s ease-in-out infinite; }
+@keyframes jv-pulo { 0%,100% { transform: translateY(0) scaleY(1); } 15% { transform: scaleY(.96); } 50% { transform: translateY(-34px) scaleY(1.02); } }
+@keyframes jv-bracos-e { 50% { transform: rotate(40deg); } }
+@keyframes jv-bracos-d { 50% { transform: rotate(-40deg); } }
+@keyframes jv-chao { 50% { transform: scale(.8); } }
+/* triste: cabeça baixa, braços caídos */
+.jv-triste .jv-cabeca { animation: none; transform: rotate(-5deg) translateY(6px); transition: transform .4s; }
+.jv-triste .jv-braco-e { animation: none; transform: rotate(-38deg); transition: transform .4s; }
+.jv-triste .jv-braco-d { animation: none; transform: rotate(38deg); transition: transform .4s; }
+/* falar: boca abre e fecha */
+.jv-boca-fala { transform-box: fill-box; transform-origin: center; animation: jv-fala .28s ease-in-out infinite alternate; }
+@keyframes jv-fala { from { transform: scaleY(.35); } to { transform: scaleY(1); } }
+.jv-balao { animation: jv-balao .25s ease-out; }
+@keyframes jv-balao { from { opacity: 0; transform: translate(-50%, -90%) scale(.9); } }
+@media (prefers-reduced-motion: reduce) { .jv *, .jv-balao { animation: none !important; } }

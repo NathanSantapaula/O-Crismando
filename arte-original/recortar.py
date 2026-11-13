@@ -47,7 +47,7 @@ def sem_fundo(im, apagar):
 def salvar(im, nome, altura):
     if im.height > altura:
         im = im.resize((round(im.width * altura / im.height), altura), Image.LANCZOS)
-    im.save(SAIDA / nome, 'WEBP', quality=88, method=6)
+    im.save(SAIDA / nome, 'PNG', optimize=True)
     return im.size
 
 SAIDA.mkdir(parents=True, exist_ok=True)
@@ -55,4 +55,4 @@ for id, (arq, caixa, apagar, busto) in ARTES.items():
     orig = Image.open(AQUI / arq)
     ajuste = [(r[0] - caixa[0], r[1] - caixa[1], r[2] - caixa[0], r[3] - caixa[1]) for r in apagar]
     figura = sem_fundo(orig.crop(caixa), ajuste)
-    print(id, 'figura', salvar(figura, f'{id}.webp', 1000))
+    print(id, 'figura', salvar(figura, f'{id}.png', 1000))

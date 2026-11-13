@@ -42,7 +42,7 @@ export default function Admin({ perfil }) {
   return (
     <div className="app-h md:flex">
       <aside className="hidden w-64 shrink-0 border-r-2 border-line p-4 md:block">
-        <div className="mb-8 flex items-center gap-2 px-2"><Bandeira size={36} /><span className="text-2xl font-black text-sol">o crismando</span></div>
+        <div className="mb-8 flex items-center gap-2 px-2"><Bandeira size={36} /><span className="text-2xl font-black text-sol">fidelingo</span></div>
         {ABAS.map(({ id, nome, Icone }) => (
           <button key={id} onClick={() => setAba(id)} className={`mb-2 flex w-full items-center gap-4 rounded-2xl border-2 px-4 py-3 font-extrabold uppercase tracking-wider ${aba === id ? 'border-marian bg-[#16304F] text-sol' : 'border-transparent text-mute'}`}>
             <Icone size={26} /> {nome}

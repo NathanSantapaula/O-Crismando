@@ -1,4 +1,4 @@
-# O Crismando
+# Fidelingo
 
 PWA de catequese para a Crisma: trilha gamificada para o crismando (mobile) e painel do catequista (mobile e desktop).
 Stack: React 18 + Vite 6 + Tailwind 4 + Lucide + Supabase (Auth, Postgres com RLS, Storage, Realtime).
@@ -10,7 +10,7 @@ E:\O-Crismando
 ├─ public/
 │  ├─ manifest.webmanifest    instalar no celular
 │  ├─ sw.js                   service worker (cache do app)
-│  ├─ icon.svg
+│  ├─ icon-192/512.png, capa.png   ícones e capa
 │  └─ arte/                   suas pinturas sacras (ver LEIA-ME.txt)
 ├─ src/
 │  ├─ lib.js                  cliente Supabase e utilitários
@@ -40,3 +40,5 @@ Crie a conta pelo app e promova no SQL Editor do Supabase:
 - Presença: só com o código do encontro liberado (validado no servidor).
 - Reposição: falta em encontro liberado e passado; quiz com 70% regulariza.
 - Ofensiva: dias seguidos com atividade (fuso de São Paulo).
+
+- Pipeline das artes: recortar.py, medir.py, tirar_aureola.py, otimizar.py (nessa ordem)

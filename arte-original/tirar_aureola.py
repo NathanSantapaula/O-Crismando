@@ -11,7 +11,7 @@ RIG = json.load(open(ARQ))
 COR = {'jesus': (238, 243, 248), 'maria': (243, 226, 181), 'jose': (243, 226, 181)}
 
 for id, alvo in COR.items():
-    im = Image.open(PASTA / f'{id}.webp').convert('RGBA'); w, h = im.size; px = im.load()
+    im = Image.open(PASTA / f'{id}.png').convert('RGBA'); w, h = im.size; px = im.load()
     parecido = lambda p, t=30: p[3] > 40 and all(abs(p[i] - alvo[i]) < t for i in range(3))
     olhos = [(x0 - 6, y0 - 6, x1 + 6, y1 + 6) for x0, y0, x1, y1 in RIG[id]['olhos']]
     limite = int(RIG[id]['pescoco'] * 0.92)
@@ -47,12 +47,12 @@ for id, alvo in COR.items():
                 np_[x, y] = (0, 0, 0, 0)
     novo = novo.crop((0, 0, w, h))
     RIG[id]['topo'] = novo.getbbox()[1]
-    novo.save(PASTA / f'{id}.webp', 'WEBP', quality=88, method=6)
+    novo.save(PASTA / f'{id}.png', 'PNG', optimize=True)
     print(id, 'auréola', len(halo), 'topo', RIG[id]['topo'])
 json.dump(RIG, open(ARQ, 'w'), indent=1)
 
 # restos dos botões da tela original no topo da arte do Jesus
-im = Image.open(PASTA / 'jesus.webp').convert('RGBA'); a = im.getchannel('A'); al = a.load()
+im = Image.open(PASTA / 'jesus.png').convert('RGBA'); a = im.getchannel('A'); al = a.load()
 for y in range(int(im.height * 0.1)):
     for x in range(im.width): al[x, y] = 0
-im.putalpha(a); im.save(PASTA / 'jesus.webp', 'WEBP', quality=88, method=6)
+im.putalpha(a); im.save(PASTA / 'jesus.png', 'PNG', optimize=True)

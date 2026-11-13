@@ -1,4 +1,5 @@
-// Personagens de O Crismando, desenhados em SVG a partir das referências do projeto:
+import { url } from '../lib'
+// Personagens do Fidelingo, desenhados em SVG a partir das referências do projeto:
 // cabeça arredondada, olhos com íris grande, corpo alongado, disco azul no chão.
 // Cada um tem animação contínua (respira, pisca, gesto próprio) e versão miniatura (mini).
 
@@ -188,7 +189,6 @@ function Cabeca({ s, expressao }) {
   const veu = s.veu || (s.acessorio === 'veu' ? { cor: '#F4F1EA', borda: '#E2D8C4' } : null)
   return (
     <g>
-      <Aureola cor={s.aureola} />
       <CabeloAtras c={veu ? null : s.cabelo} />
       <circle cx="60" cy="96" r="10" fill={tom(s.pele, 0.9)} />
       <circle cx="140" cy="96" r="10" fill={tom(s.pele, 0.9)} />
@@ -419,7 +419,7 @@ function Arte({ id, size, className, busto, mini, animado, falando }) {
     : mini ? [-w * 0.14, p - p * 1.3, w * 1.28, p * 1.3 + (h - p) * 0.6] : [0, 0, w, h]
   const alturaPadrao = size * 1.75 // todos com a mesma altura visual, qualquer que seja a largura da arte
   const [larg, alt] = busto ? [size, size] : [(alturaPadrao * vb[2]) / vb[3], alturaPadrao]
-  const img = <image href={`/personagens/${id}.webp`} width={w} height={h} />
+  const img = <image href={url(`/personagens/${id}.png`)} width={w} height={h} />
   return (
     <svg viewBox={vb.join(' ')} width={larg} height={alt} className={`${animado ? 'p-anima' : ''} ${falando ? 'p-falando' : ''} ${className}`} role="img" aria-label={GUIAS[id]?.nome || id}>
       <defs>

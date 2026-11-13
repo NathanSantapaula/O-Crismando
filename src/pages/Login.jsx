@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
-import { sb } from '../lib'
+import { sb, url } from '../lib'
 import Personagem, { Bandeira } from '../components/Personagem'
 
 const PERGUNTAS = [
-  { chave: 'origem', fala: 'Como você conheceu O Crismando?', opcoes: ['Pelo meu catequista', 'Na paróquia', 'Por amigos', 'Pela família', 'Nas redes sociais'] },
+  { chave: 'origem', fala: 'Como você conheceu o Fidelingo?', opcoes: ['Pelo meu catequista', 'Na paróquia', 'Por amigos', 'Pela família', 'Nas redes sociais'] },
   { chave: 'tempo', fala: 'Quanto tempo por semana você quer rezar e estudar aqui?', opcoes: ['5 minutos, tranquilo', '15 minutos, firme', '30 minutos, intenso', '1 hora, missionário'] },
   { chave: 'motivo', fala: 'O que mais te move a receber a Crisma?', opcoes: ['Fortalecer minha fé', 'Viver os sacramentos', 'Poder ser padrinho ou madrinha', 'Ainda estou descobrindo'] },
 ]
@@ -51,8 +51,8 @@ export default function Login() {
   if (tela === 'inicio') return (
     <main className="app-h safe-t mx-auto flex max-w-md flex-col px-6 pb-4">
       <div className="flex flex-1 flex-col items-center justify-center text-center">
-        <div className="surge"><Personagem id="jesus" size={170} className="pula" /></div>
-        <h1 className="mt-6 text-5xl font-black tracking-tight text-sol">o crismando</h1>
+        <div className="surge"><img src={url('/capa.png')} alt="" width="168" height="168" className="pula rounded-[40px] border-b-[6px] border-[#0A1118]" /></div>
+        <h1 className="mt-7 text-5xl font-black tracking-tight text-sol">fidelingo</h1>
         <p className="mt-3 flex items-center gap-2 text-lg"><Bandeira size={26} /> Sua caminhada até a Crisma.</p>
       </div>
       <div className="safe-b space-y-3">

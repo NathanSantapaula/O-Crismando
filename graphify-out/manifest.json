@@ -12,15 +12,15 @@
     "semantic_hash": ""
   },
   "public/sw.js": {
-    "mtime": 1794588825.5549579,
-    "seen": 1794588929.135045,
-    "ast_hash": "2567bf5b564a742f8159ecb6e453bf40",
+    "mtime": 1794596962.4822674,
+    "seen": 1794597123.5737278,
+    "ast_hash": "15fd07fce6638387cf26fbeb1980ef1d",
     "semantic_hash": ""
   },
   "src/App.jsx": {
-    "mtime": 1794589014.154266,
-    "seen": 1794590059.520887,
-    "ast_hash": "55462823b1f2f65024a971ffdfa9a277",
+    "mtime": 1794592119.0469785,
+    "seen": 1794592987.4992337,
+    "ast_hash": "5ac69cc726aafe531b79e6e3cbb69493",
     "semantic_hash": ""
   },
   "src/lib.js": {
@@ -36,20 +36,20 @@
     "semantic_hash": ""
   },
   "src/pages/Login.jsx": {
-    "mtime": 1794584913.9242098,
-    "seen": 1794585392.022923,
-    "ast_hash": "8c9bcdd508f307b58b0ba41a7cfcab88",
+    "mtime": 1794596962.471168,
+    "seen": 1794597123.5737278,
+    "ast_hash": "949e7c45ce546433c3168f214c14c95d",
     "semantic_hash": ""
   },
   "src/pages/admin/Admin.jsx": {
-    "mtime": 1794585172.097938,
-    "seen": 1794585392.022923,
-    "ast_hash": "e23481da7f121eb56ca214b50aace676",
+    "mtime": 1794596962.471168,
+    "seen": 1794597123.5737278,
+    "ast_hash": "95df03617ffccac3d3266435760519a3",
     "semantic_hash": ""
   },
   "src/pages/aluno/Aluno.jsx": {
-    "mtime": 1794590009.2058878,
-    "seen": 1794590059.520887,
+    "mtime": 1794593027.9814517,
+    "seen": 1794597123.5737278,
     "ast_hash": "ed8ed4edf69bb84ac7db2d180eacd61b",
     "semantic_hash": ""
   },
@@ -66,27 +66,21 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1794583959.480246,
-    "seen": 1794583992.6169696,
-    "ast_hash": "9562174ea144bb4c27480972f74c4142",
+    "mtime": 1794596989.3641193,
+    "seen": 1794597123.5737278,
+    "ast_hash": "b0d5e94552a33f5b34eb9d51d99ebc63",
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1794588825.8090398,
-    "seen": 1794588929.135045,
-    "ast_hash": "a02457c61de376a3b591d4752c07393f",
+    "mtime": 1794596962.4782755,
+    "seen": 1794597123.5737278,
+    "ast_hash": "32a1e340392d8a6fcec94c4722e3fa55",
     "semantic_hash": ""
   },
   "public/arte/LEIA-ME.txt": {
     "mtime": 1794583446.928188,
     "seen": 1794583992.6169696,
     "ast_hash": "68f951d47067639c59994a76c871648c",
-    "semantic_hash": ""
-  },
-  "public/icon.svg": {
-    "mtime": 1794585183.784239,
-    "seen": 1794585392.0379105,
-    "ast_hash": "0e2253c9a67c169f46e95dc1fc4ce49b",
     "semantic_hash": ""
   },
   "src/components/Icones.jsx": {
@@ -96,9 +90,9 @@
     "semantic_hash": ""
   },
   "src/components/Personagem.jsx": {
-    "mtime": 1794589421.432098,
-    "seen": 1794590059.520887,
-    "ast_hash": "8613709700c88d2c727ee82d93085102",
+    "mtime": 1794596962.4843776,
+    "seen": 1794597123.5737278,
+    "ast_hash": "4d1ecb30ba0eba1802aa8b6a544c190d",
     "semantic_hash": ""
   },
   "src/pages/Galeria.jsx": {
@@ -114,9 +108,9 @@
     "semantic_hash": ""
   },
   "arte-original/recortar.py": {
-    "mtime": 1794589776.6528084,
-    "seen": 1794590059.520887,
-    "ast_hash": "5c8fcf36d7e6ef68a362294ea931b1e1",
+    "mtime": 1794592771.4498353,
+    "seen": 1794592987.4992337,
+    "ast_hash": "00e3d607b183a0f386d580f5043e01d4",
     "semantic_hash": ""
   },
   ".github/workflows/pages.yml": {
@@ -162,21 +156,21 @@
     "semantic_hash": ""
   },
   "arte-original/medir.py": {
-    "mtime": 1794589690.586572,
-    "seen": 1794590059.520887,
-    "ast_hash": "9a7e35a8cec2f347941211c44e0895c5",
+    "mtime": 1794592771.4527218,
+    "seen": 1794592987.4992337,
+    "ast_hash": "2eace12890c4569168686cf5a06ee0ec",
     "semantic_hash": ""
   },
   "arte-original/tirar_aureola.py": {
-    "mtime": 1794590098.9862263,
-    "seen": 1794590284.9031231,
-    "ast_hash": "04ceb18e9dc5d049faaa2f6b22f034c1",
+    "mtime": 1794592771.4519594,
+    "seen": 1794592987.4992337,
+    "ast_hash": "0921edefbf83e0f4b4d4f127220ffd83",
     "semantic_hash": ""
   },
   "src/components/rig.json": {
-    "mtime": 1794590239.2887895,
-    "seen": 1794590284.9031231,
-    "ast_hash": "77954986928db897de913a7c88deba61",
+    "mtime": 1794592839.739388,
+    "seen": 1794592987.4992337,
+    "ast_hash": "0dc844f4fcced4b40f34d77f72c8a471",
     "semantic_hash": ""
   },
   "src/pages/Comparar.jsx": {
@@ -185,40 +179,346 @@
     "ast_hash": "d6346ae55cb95794a7b9957361f92448",
     "semantic_hash": ""
   },
-  "public/personagens/agostinho.webp": {
-    "mtime": 1794590145.0477712,
-    "seen": 1794590284.9031231,
-    "ast_hash": "1cf52051157d99ffa0e005a449db9065",
+  "arte-original/vetorizar.py": {
+    "mtime": 1794592703.8677552,
+    "seen": 1794592987.4992337,
+    "ast_hash": "c16a22d6ae56c5174f1a4fb471cd8645",
     "semantic_hash": ""
   },
-  "public/personagens/carlo.webp": {
-    "mtime": 1794590133.3212175,
-    "seen": 1794590284.9031231,
-    "ast_hash": "c3765d670379c188d6db989fc008027f",
+  "src/components/JesusArte.jsx": {
+    "mtime": 1794592742.6317801,
+    "seen": 1794592987.4992337,
+    "ast_hash": "7b388027d77646ee522370f7569bd7cd",
     "semantic_hash": ""
   },
-  "public/personagens/jesus.webp": {
-    "mtime": 1794590249.4033754,
-    "seen": 1794590284.9031231,
-    "ast_hash": "9cd0b24df8d519e2d331f036321ff7f5",
+  "src/components/JesusVivo.jsx": {
+    "mtime": 1794592340.1815753,
+    "seen": 1794592987.4992337,
+    "ast_hash": "5c2896225089fbfcdcd2d23180733aea",
     "semantic_hash": ""
   },
-  "public/personagens/jose.webp": {
-    "mtime": 1794590239.2872505,
-    "seen": 1794590284.9031231,
-    "ast_hash": "868b6117550e5a14f542373287003400",
+  "src/components/jesusVetor.json": {
+    "mtime": 1794592705.4989781,
+    "seen": 1794592987.4992337,
+    "ast_hash": "27308e66b7a1a0637b5eb0fc06495ac5",
     "semantic_hash": ""
   },
-  "public/personagens/maria.webp": {
-    "mtime": 1794590232.7441947,
-    "seen": 1794590284.9031231,
-    "ast_hash": "c38d3668d926eaa826c841a77495f17f",
+  "src/pages/JesusLab.jsx": {
+    "mtime": 1794596214.9136686,
+    "seen": 1794597123.5737278,
+    "ast_hash": "00c6d067a15f1632c18e93a8bc09fe9d",
     "semantic_hash": ""
   },
-  "public/personagens/pedro.webp": {
-    "mtime": 1794590166.6018887,
-    "seen": 1794590284.9031231,
-    "ast_hash": "1ed13476818726edd3393560bf83cc28",
+  "arte-original/_partes/bracoD.png": {
+    "mtime": 1794592705.2571974,
+    "seen": 1794592987.4992337,
+    "ast_hash": "b8cf79a53846b725abc1e87dfcec5015",
+    "semantic_hash": ""
+  },
+  "arte-original/_partes/bracoD.svg": {
+    "mtime": 1794592705.3185375,
+    "seen": 1794592987.4992337,
+    "ast_hash": "ce5ea9a9ad80d67ad439ac340b935fa2",
+    "semantic_hash": ""
+  },
+  "arte-original/_partes/bracoE.png": {
+    "mtime": 1794592705.1331027,
+    "seen": 1794592987.4992337,
+    "ast_hash": "51ae83e5434ed6d853eb083cc13679ce",
+    "semantic_hash": ""
+  },
+  "arte-original/_partes/bracoE.svg": {
+    "mtime": 1794592705.219452,
+    "seen": 1794592987.4992337,
+    "ast_hash": "d9b373296f768b65fc72cab4cb8d6c10",
+    "semantic_hash": ""
+  },
+  "arte-original/_partes/cabeca.png": {
+    "mtime": 1794592705.358506,
+    "seen": 1794592987.4992337,
+    "ast_hash": "10904609f73943725f37b3fe3a9a01d1",
+    "semantic_hash": ""
+  },
+  "arte-original/_partes/cabeca.svg": {
+    "mtime": 1794592705.478698,
+    "seen": 1794592987.4992337,
+    "ast_hash": "461b3440a86e4a0c390b725ddac60449",
+    "semantic_hash": ""
+  },
+  "arte-original/_partes/corpo.png": {
+    "mtime": 1794592704.9425464,
+    "seen": 1794592987.4992337,
+    "ast_hash": "8003b059dd93820608eb87a3b45b688e",
+    "semantic_hash": ""
+  },
+  "arte-original/_partes/corpo.svg": {
+    "mtime": 1794592705.0940206,
+    "seen": 1794592987.4992337,
+    "ast_hash": "3ec3936699eb5886fe7794e32a1bbc6e",
+    "semantic_hash": ""
+  },
+  "public/personagens/agostinho.png": {
+    "mtime": 1794596988.5158281,
+    "seen": 1794597123.5747328,
+    "ast_hash": "23ebae63402ecc79a824cc2a2381e186",
+    "semantic_hash": ""
+  },
+  "public/personagens/carlo.png": {
+    "mtime": 1794596988.712582,
+    "seen": 1794597123.5747328,
+    "ast_hash": "db3f1f4615ca2ee1c3b52763adbb3bcf",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus.png": {
+    "mtime": 1794596988.7970068,
+    "seen": 1794597123.5747328,
+    "ast_hash": "b30de4fecad6ccc3bf10e89931ed6b2f",
+    "semantic_hash": ""
+  },
+  "public/personagens/jose.png": {
+    "mtime": 1794596988.9335742,
+    "seen": 1794597123.5747328,
+    "ast_hash": "43bb46d7b068d2aca7084b702ba62b12",
+    "semantic_hash": ""
+  },
+  "public/personagens/maria.png": {
+    "mtime": 1794596989.0809617,
+    "seen": 1794597123.5747328,
+    "ast_hash": "5c709254982bbdd685389882421c8c9e",
+    "semantic_hash": ""
+  },
+  "public/personagens/pedro.png": {
+    "mtime": 1794596989.2985072,
+    "seen": 1794597123.5747328,
+    "ast_hash": "d98781eefdeb78c3b234dff67cd1b929",
+    "semantic_hash": ""
+  },
+  "arte-original/hd.py": {
+    "mtime": 1794596472.4107618,
+    "seen": 1794597123.5727322,
+    "ast_hash": "c65578e26a592e2b71ebe99952fadd70",
+    "semantic_hash": ""
+  },
+  "arte-original/otimizar.py": {
+    "mtime": 1794596987.2458813,
+    "seen": 1794597123.5737278,
+    "ast_hash": "b3eda7861519f497322674bb2fc6517f",
+    "semantic_hash": ""
+  },
+  "arte-original/partes_jesus.py": {
+    "mtime": 1794596912.3979514,
+    "seen": 1794597123.5737278,
+    "ast_hash": "cb9e5c5cca8f80ea2e149fade997e811",
+    "semantic_hash": ""
+  },
+  "src/components/JesusHumano.jsx": {
+    "mtime": 1794595988.0379453,
+    "seen": 1794597123.5737278,
+    "ast_hash": "683f44447c1647f6658fd1ca89d7823d",
+    "semantic_hash": ""
+  },
+  "src/components/jesusPartes.json": {
+    "mtime": 1794596931.7582667,
+    "seen": 1794597123.5737278,
+    "ast_hash": "500a99f887a1b58eda5920b955b2a523",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/boca.png": {
+    "mtime": 1794596916.89697,
+    "seen": 1794597123.5737278,
+    "ast_hash": "08a7f16b55a46f380f1db917690b36c7",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/braco_d.png": {
+    "mtime": 1794596922.6991682,
+    "seen": 1794597123.5737278,
+    "ast_hash": "56ca21894218869fd562efa6ffd6f281",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/braco_e.png": {
+    "mtime": 1794596922.331388,
+    "seen": 1794597123.5737278,
+    "ast_hash": "b053384bf9a8a3f1812446f9c81fc022",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/cabelo.png": {
+    "mtime": 1794596921.9374328,
+    "seen": 1794597123.5737278,
+    "ast_hash": "4afaee36ed90b1e6312315c7e5fdaa13",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/corpo.png": {
+    "mtime": 1794596931.518555,
+    "seen": 1794597123.5737278,
+    "ast_hash": "3afa4c059246e9e3e88435a6a78aeb26",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/0538dd5a4d078e12b8a0d4b95890e153.png": {
+    "mtime": 1794596894.0285265,
+    "seen": 1794597123.5737278,
+    "ast_hash": "fd9ba3911afdcf3e38234e89f38c9a4f",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/08a7f16b55a46f380f1db917690b36c7.png": {
+    "mtime": 1794596893.9467454,
+    "seen": 1794597123.5737278,
+    "ast_hash": "a7ecd544faf3150c0e84fd9f3b5bd695",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/1a983a65a571fe33b6a5319e026b6872.png": {
+    "mtime": 1794596894.1059318,
+    "seen": 1794597123.5737278,
+    "ast_hash": "59c28b62323d3009dce1f7abb141cb3f",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/4afaee36ed90b1e6312315c7e5fdaa13.png": {
+    "mtime": 1794596893.9762733,
+    "seen": 1794597123.5737278,
+    "ast_hash": "c6b89126acdb76280ed7d1817afe7400",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/561f9502a0edd4ceffe0f3838503cd54.png": {
+    "mtime": 1794596894.0945654,
+    "seen": 1794597123.5737278,
+    "ast_hash": "b04e0679d04f069a35acc9940589f688",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/56ca21894218869fd562efa6ffd6f281.png": {
+    "mtime": 1794596893.9591947,
+    "seen": 1794597123.5737278,
+    "ast_hash": "4a2bd393eecaedb353b16789961f2b5d",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/b053384bf9a8a3f1812446f9c81fc022.png": {
+    "mtime": 1794596893.975005,
+    "seen": 1794597123.5737278,
+    "ast_hash": "705c456f0449b72fdf67c8cbd98de45e",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/ccfcbadb374509de0a4d83b33ec4c367.png": {
+    "mtime": 1794596894.0835755,
+    "seen": 1794597123.5737278,
+    "ast_hash": "66c59fdcc716b7cc89d41c5c7ccab7c8",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/hd/eaf144cfd728f3d07c304dc9250aa6d7.png": {
+    "mtime": 1794596894.0710976,
+    "seen": 1794597123.5737278,
+    "ast_hash": "00e7e2209ed8b1a890234ee0f2eddf84",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/iris.png": {
+    "mtime": 1794596916.4905562,
+    "seen": 1794597123.5737278,
+    "ast_hash": "ccfcbadb374509de0a4d83b33ec4c367",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/olhos.png": {
+    "mtime": 1794596915.9930592,
+    "seen": 1794597123.5737278,
+    "ast_hash": "561f9502a0edd4ceffe0f3838503cd54",
+    "semantic_hash": ""
+  },
+  "arte-original/_camadas1x/rosto.png": {
+    "mtime": 1794596921.5582242,
+    "seen": 1794597123.5737278,
+    "ast_hash": "1a983a65a571fe33b6a5319e026b6872",
+    "semantic_hash": ""
+  },
+  "arte-original/capa.jpg": {
+    "mtime": 1794596900.0336273,
+    "seen": 1794597123.5737278,
+    "ast_hash": "aab544fb0bb4132d17ec67d2403c93cd",
+    "semantic_hash": ""
+  },
+  "arte-original/jesus-foto.png": {
+    "mtime": 1794593289.0149505,
+    "seen": 1794597123.5737278,
+    "ast_hash": "780c7b5d350b3d70d29860c504818935",
+    "semantic_hash": ""
+  },
+  "public/apple-touch-icon.png": {
+    "mtime": 1794596904.1194742,
+    "seen": 1794597123.5737278,
+    "ast_hash": "5397e08e02533662bcd0c72a87efdbb7",
+    "semantic_hash": ""
+  },
+  "public/capa.png": {
+    "mtime": 1794596904.5063763,
+    "seen": 1794597123.5737278,
+    "ast_hash": "f37552c8d5297e67864484d6b380a9c3",
+    "semantic_hash": ""
+  },
+  "public/favicon.png": {
+    "mtime": 1794596904.1467428,
+    "seen": 1794597123.5737278,
+    "ast_hash": "5f28ed8ed29790f460859b3f67e0a7e9",
+    "semantic_hash": ""
+  },
+  "public/icon-192.png": {
+    "mtime": 1794596903.9580274,
+    "seen": 1794597123.5737278,
+    "ast_hash": "44bbb98e66e9c29380760be0cd22db53",
+    "semantic_hash": ""
+  },
+  "public/icon-512.png": {
+    "mtime": 1794596903.7846975,
+    "seen": 1794597123.5747328,
+    "ast_hash": "47cdf69e514e87b439f356b06102f648",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/boca.png": {
+    "mtime": 1794596960.1073306,
+    "seen": 1794597123.5747328,
+    "ast_hash": "a7ecd544faf3150c0e84fd9f3b5bd695",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/braco_d.png": {
+    "mtime": 1794596960.1175816,
+    "seen": 1794597123.5747328,
+    "ast_hash": "4a2bd393eecaedb353b16789961f2b5d",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/braco_e.png": {
+    "mtime": 1794596960.133529,
+    "seen": 1794597123.5747328,
+    "ast_hash": "705c456f0449b72fdf67c8cbd98de45e",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/cabelo.png": {
+    "mtime": 1794596960.143645,
+    "seen": 1794597123.5747328,
+    "ast_hash": "c6b89126acdb76280ed7d1817afe7400",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/chao.png": {
+    "mtime": 1794596090.247465,
+    "seen": 1794597123.5747328,
+    "ast_hash": "fd9ba3911afdcf3e38234e89f38c9a4f",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/corpo.png": {
+    "mtime": 1794596248.5968971,
+    "seen": 1794597123.5747328,
+    "ast_hash": "00e7e2209ed8b1a890234ee0f2eddf84",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/iris.png": {
+    "mtime": 1794596435.5251157,
+    "seen": 1794597123.5747328,
+    "ast_hash": "66c59fdcc716b7cc89d41c5c7ccab7c8",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/olhos.png": {
+    "mtime": 1794596647.7711406,
+    "seen": 1794597123.5747328,
+    "ast_hash": "b04e0679d04f069a35acc9940589f688",
+    "semantic_hash": ""
+  },
+  "public/personagens/jesus/rosto.png": {
+    "mtime": 1794596833.9858794,
+    "seen": 1794597123.5747328,
+    "ast_hash": "59c28b62323d3009dce1f7abb141cb3f",
     "semantic_hash": ""
   }
 }

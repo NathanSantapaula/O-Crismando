@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
 import { sb, url } from '../lib'
-import Personagem, { Bandeira } from '../components/Personagem'
+import Personagem from '../components/Personagem'
 
 const PERGUNTAS = [
   { chave: 'origem', fala: 'Como você conheceu o Fidelingo?', opcoes: ['Pelo meu catequista', 'Na paróquia', 'Por amigos', 'Pela família', 'Nas redes sociais'] },
@@ -53,7 +53,7 @@ export default function Login() {
       <div className="flex flex-1 flex-col items-center justify-center text-center">
         <div className="surge"><img src={url('/capa.png')} alt="" width="168" height="168" className="pula rounded-[40px] border-b-[6px] border-[#0A1118]" /></div>
         <h1 className="mt-7 text-5xl font-black tracking-tight text-sol">fidelingo</h1>
-        <p className="mt-3 flex items-center gap-2 text-lg"><Bandeira size={26} /> Sua caminhada até a Crisma.</p>
+        <p className="mt-3 text-lg">Sua caminhada até a Crisma.</p>
       </div>
       <div className="safe-b space-y-3">
         <button className="btn btn-sol" onClick={() => setTela('ola')}>Começar</button>

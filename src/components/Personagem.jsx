@@ -381,6 +381,7 @@ function Item({ id, pele }) {
 /* =================== figura =================== */
 
 export default function Personagem({ id, spec, humor, size = 120, sombra = true, className = '', busto = false, mini = false, animado = true, falando = false }) {
+  if (!spec && id) id = 'jesus'
   if (!spec && RIG[id]) return <Arte id={id} size={size} className={className} busto={busto} mini={mini} animado={animado} falando={falando} />
   const s = spec || GUIAS[id] || GUIAS.jesus
   const expressao = humor || s.expressao || 'feliz'
@@ -446,6 +447,11 @@ function Arte({ id, size, className, busto, mini, animado, falando }) {
       </g>
     </svg>
   )
+}
+
+/* ---------- marca do app: Jesus de braços abertos ---------- */
+export function Marca({ size = 40, className = '' }) {
+  return <img src={url('/jesus-abracos.png')} alt="Fidelingo" height={size} style={{ height: size, width: 'auto' }} className={className} />
 }
 
 /* ---------- bandeira do Vaticano (simplificada) ---------- */

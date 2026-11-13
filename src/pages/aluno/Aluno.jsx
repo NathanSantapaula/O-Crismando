@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Church, Shield, Trophy, Images, NotebookText, Star, BookOpen, Video, HandHeart, Lock, Check, KeyRound, X, Gift, Settings, Shirt, CalendarClock } from 'lucide-react'
 import { sb, hoje, dataBR, AREAS, STATUS, url } from '../../lib'
-import Personagem, { GUIAS, AVATAR_PADRAO, Bandeira } from '../../components/Personagem'
+import Personagem, { GUIAS, AVATAR_PADRAO, Marca } from '../../components/Personagem'
 import { Bau, Chama, Gema, Medalha, NavIcone } from '../../components/Icones'
 import { Balao, Barra } from '../Login'
 import Licao from './Licao'
@@ -65,7 +65,7 @@ export default function Aluno({ perfil, recarregar }) {
     <div className="app-h mx-auto max-w-[620px]">
       {aba !== 'perfil' && (
         <header className="safe-t sticky top-0 z-20 flex items-center justify-between bg-ground px-5 py-3">
-          <span className="flex items-center gap-2 text-lg"><Bandeira size={34} /> {encontrosFeitos}</span>
+          <span className="flex items-center gap-2 text-lg"><Marca size={38} /> {encontrosFeitos}</span>
           <span className="flex items-center gap-1.5 text-lg" title="Semanas seguidas com lição" style={{ color: d.metricas.semana_feita ? '#FF9600' : '#55687A' }}>
             <Chama size={24} acesa={d.metricas.semana_feita} className={d.metricas.semana_feita ? 'chama' : ''} /> {d.metricas.streak || 0}
           </span>
@@ -273,7 +273,7 @@ export function Arte({ e, className = '' }) {
     <figure className={className}>
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border-2 border-line bg-surface">
         {e.imagem_url && <img src={url(e.imagem_url)} alt={e.imagem_credito || ''} className="absolute inset-0 h-full w-full object-cover" onError={ev => (ev.currentTarget.style.display = 'none')} />}
-        <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center text-sol"><Bandeira size={40} /><span>{e.imagem_credito}</span></div>
+        <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center text-sol"><Marca size={64} /><span>{e.imagem_credito}</span></div>
       </div>
       {e.imagem_credito && <figcaption className="mt-1.5 text-sm text-mute">{e.imagem_credito}</figcaption>}
     </figure>

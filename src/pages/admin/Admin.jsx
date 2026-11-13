@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { LayoutDashboard, Users, BookOpen, Trophy, Megaphone, LogOut, ChevronLeft, KeyRound, Upload, Trash2, Plus, Gift, Check } from 'lucide-react'
 import { sb, dataBR, hoje, AREAS, STATUS } from '../../lib'
-import Personagem, { GUIAS, AVATAR_PADRAO, Bandeira } from '../../components/Personagem'
+import Personagem, { GUIAS, AVATAR_PADRAO, Marca } from '../../components/Personagem'
 import { Medalha } from '../../components/Icones'
 
 const ABAS = [
@@ -42,7 +42,7 @@ export default function Admin({ perfil }) {
   return (
     <div className="app-h md:flex">
       <aside className="hidden w-64 shrink-0 border-r-2 border-line p-4 md:block">
-        <div className="mb-8 flex items-center gap-2 px-2"><Bandeira size={36} /><span className="text-2xl font-black text-sol">fidelingo</span></div>
+        <div className="mb-8 flex items-center gap-2 px-2"><Marca size={40} /><span className="text-2xl font-black text-sol">fidelingo</span></div>
         {ABAS.map(({ id, nome, Icone }) => (
           <button key={id} onClick={() => setAba(id)} className={`mb-2 flex w-full items-center gap-4 rounded-2xl border-2 px-4 py-3 font-extrabold uppercase tracking-wider ${aba === id ? 'border-marian bg-[#16304F] text-sol' : 'border-transparent text-mute'}`}>
             <Icone size={26} /> {nome}
@@ -329,9 +329,6 @@ function Editor({ e: inicial, voltar }) {
         <input className="campo md:col-span-2" placeholder="Tema do encontro" value={e.titulo} onChange={set('titulo')} />
         <input className="campo" type="number" aria-label="Ordem" value={e.ordem} onChange={set('ordem')} />
         <input className="campo" type="date" aria-label="Data" value={e.data || ''} onChange={set('data')} />
-        <select className="campo md:col-span-2" value={e.guia} onChange={set('guia')} aria-label="Guia">
-          {Object.entries(GUIAS).map(([k, g]) => <option key={k} value={k}>Guia: {g.nome}</option>)}
-        </select>
         <textarea className="campo min-h-32 md:col-span-2" placeholder="Texto da leitura (aparece nas lições de leitura e no guia)" value={e.leitura} onChange={set('leitura')} />
         <input className="campo md:col-span-2" placeholder="Citação do Catecismo" value={e.citacao || ''} onChange={set('citacao')} />
         <input className="campo" placeholder="Referência (ex.: CIC 1285)" value={e.cic_ref || ''} onChange={set('cic_ref')} />
@@ -475,7 +472,7 @@ function Campanhas({ campanhas, recarregar }) {
         <input className="campo" placeholder="Título (ex.: Novena de Pentecostes)" value={c.titulo} onChange={set('titulo')} required />
         <textarea className="campo" placeholder="Mensagem e prêmio" value={c.texto} onChange={set('texto')} required />
         <div className="grid gap-2 md:grid-cols-2">
-          <select className="campo" aria-label="Personagem" value={c.guia} onChange={set('guia')}>{Object.entries(GUIAS).map(([k, g]) => <option key={k} value={k}>{g.nome}</option>)}</select>
+          
           <input className="campo" type="date" aria-label="Termina em" value={c.fim} onChange={set('fim')} required />
         </div>
         <button className="btn btn-sol">Publicar campanha</button>

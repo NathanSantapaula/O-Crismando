@@ -172,7 +172,7 @@ function Inicio({ encontros, feito, presenca, faltas, baus, abrir, carregar, cam
               </button>
             )}
 
-            <div className="relative mt-8 flex flex-col items-center gap-5">
+            <div className="relative mt-16 flex flex-col items-center gap-5">
               <div className={`pointer-events-none absolute top-[30%] ${onda(n + meio) > 0 ? 'left-0' : 'right-0'}`}>
                 {i === 0
                   ? <Personagem id={e.guia} mini size={96} className={e.liberado ? 'balanca' : 'opacity-50 grayscale'} />

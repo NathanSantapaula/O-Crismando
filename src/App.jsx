@@ -5,10 +5,12 @@ import Aluno from './pages/aluno/Aluno'
 import Admin from './pages/admin/Admin'
 import Galeria from './pages/Galeria'
 import Comparar from './pages/Comparar'
+import GradeCabelo from './pages/GradeCabelo'
 
 export default function App() {
   if (import.meta.env.DEV && location.search.includes('galeria')) return <Galeria />
   if (import.meta.env.DEV && location.search.includes('comparar')) return <Comparar />
+  if (import.meta.env.DEV && location.search.includes('cabelos')) return <GradeCabelo />
   const [sessao, setSessao] = useState(undefined)
   const [perfil, setPerfil] = useState(null)
 

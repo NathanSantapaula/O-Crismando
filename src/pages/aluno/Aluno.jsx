@@ -8,6 +8,7 @@ import { Balao, Barra } from '../Login'
 import Licao from './Licao'
 import { som, somLigado, alternarSom } from '../../sons'
 import Avatar from './Avatar'
+import { FolhaOfensiva, FolhaXP } from './Topo'
 
 // cores de unidade: amarelo (destaque), vinho, azul mariano, oliva, violeta
 const COR = [
@@ -25,6 +26,7 @@ export default function Aluno({ perfil, recarregar }) {
   const [licao, setLicao] = useState(null)
   const [editarAvatar, setEditarAvatar] = useState(false)
   const [campanhaAberta, setCampanhaAberta] = useState(false)
+  const [folha, setFolha] = useState(null) // 'ofensiva' | 'xp'
 
   async function carregar() {
     const [e, p, pr, b, t, c, m, cp] = await Promise.all([
@@ -60,6 +62,7 @@ export default function Aluno({ perfil, recarregar }) {
   const faltas = d.encontros.filter(e => e.liberado && e.data && e.data <= hoje() && !presenca(e.id))
   const ctx = { ...d, perfil, feito, presenca, faltas, carregar, abrir: (l, e) => setLicao({ licao: l, encontro: e }), setEditarAvatar, setCampanhaAberta }
   const avatar = { ...AVATAR_PADRAO, ...perfil.avatar }
+  const irParaLicao = () => { setAba('inicio'); setTimeout(() => document.querySelector('.brilho-no')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80) }
   const encontrosFeitos = d.metricas.encontros || 0
 
   const ABAS = [
@@ -74,12 +77,13 @@ export default function Aluno({ perfil, recarregar }) {
     <div className="app-h mx-auto max-w-[620px]">
       {aba !== 'perfil' && (
         <header ref={topoRef} className="safe-t sticky top-0 z-20 flex items-center justify-between bg-ground px-5 py-3">
-          <span className="flex items-center gap-2 text-lg" title="Encontros completos"><Bandeira size={34} /> {encontrosFeitos}</span>
-          <span className="flex items-center gap-1.5 text-lg" title="Semanas seguidas com lição" style={{ color: d.metricas.semana_feita ? '#FF9600' : '#55687A' }}>
+          {/* cada número do topo é tocável */}
+          <button onClick={() => { som('toque'); irParaLicao() }} className="flex items-center gap-2 rounded-xl px-1 text-lg active:scale-90" aria-label="Encontros completos: ir para a lição atual"><Bandeira size={34} /> {encontrosFeitos}</button>
+          <button onClick={() => setFolha('ofensiva')} className="flex items-center gap-1.5 rounded-xl px-1 text-lg active:scale-90" aria-label="Ver minha sequência" style={{ color: d.metricas.semana_feita ? '#FF9600' : '#55687A' }}>
             <Chama size={24} acesa={d.metricas.semana_feita} className={d.metricas.semana_feita ? 'chama' : ''} /> {d.metricas.streak || 0}
-          </span>
-          <span className="flex items-center gap-1.5 text-lg text-marian"><Gema /> {perfil.xp}</span>
-          <span className="flex items-center gap-1.5 text-lg text-sol"><Trophy size={22} fill="currentColor" /> {d.conquistas.length}</span>
+          </button>
+          <button onClick={() => setFolha('xp')} className="flex items-center gap-1.5 rounded-xl px-1 text-lg text-marian active:scale-90" aria-label="Ver meu XP"><Gema /> {perfil.xp}</button>
+          <button onClick={() => { som('toque'); setAba('trofeus'); scrollTo(0, 0) }} className="flex items-center gap-1.5 rounded-xl px-1 text-lg text-sol active:scale-90" aria-label="Abrir troféus"><Trophy size={22} fill="currentColor" /> {d.conquistas.length}</button>
         </header>
       )}
 
@@ -102,6 +106,8 @@ export default function Aluno({ perfil, recarregar }) {
       </nav>
 
       {campanhaAberta && d.campanha && <Campanha c={d.campanha} fechar={() => setCampanhaAberta(false)} />}
+      {folha === 'ofensiva' && <FolhaOfensiva metricas={d.metricas} progresso={d.progresso} fechar={() => setFolha(null)} irParaLicao={irParaLicao} />}
+      {folha === 'xp' && <FolhaXP perfil={perfil} trofeus={d.trofeus} conquistas={d.conquistas} fechar={() => setFolha(null)} />}
     </div>
   )
 }

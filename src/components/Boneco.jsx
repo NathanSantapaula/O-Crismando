@@ -74,7 +74,7 @@ function CabeloFrente({ e, c }) {
     case 'topete': return <g><path d="M30 60Q28 22 60 14q8-12 32-10 30 6 38 30 4 12 0 26-8-18-26-22-18 2-32-2-20 4-42 24Z" fill={c} /><path d="M66 12q14-10 30-4" stroke={s} strokeWidth="5" fill="none" strokeLinecap="round" /></g>
     case 'anime': return <path d="M26 66 20 38l18 6-4-26 22 14 2-28 18 22 14-24 6 28 22-14-6 26 18-4-8 26q-6-16-22-20-16 6-34 2-18-2-32 6-12 8-16 14Z" fill={c} />
     case 'cacheado': return <g fill={c}>{[[34, 52], [44, 34], [62, 22], [82, 18], [102, 22], [118, 34], [128, 52]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r="15" />)}</g>
-    case 'blackpower': return <path d="M32 58q4-20 22-26 26-8 52 0 18 6 22 26-14-12-48-12-34 0-48 12Z" fill={s} opacity=".35" />
+    case 'blackpower': return <path d="M30 60Q30 24 80 22q50 2 50 38-8-12-18-14-4 6-12 2-6 6-14 2-8 6-14 0-8 4-14-2-10 2-22 12Z" fill={c} />
     case 'longo':
     case 'rabo':
     case 'trancas':
@@ -207,6 +207,11 @@ const CABECA = {
   alta: { x: 36, y: 0, width: 88, height: 114, rx: 34 },
   larga: { x: 20, y: 26, width: 120, height: 88, rx: 40 },
 }
+// leva o que foi desenhado para a cabeça redonda (x30 y16, 100x98) até o formato escolhido
+function ajusteCabeca(f) {
+  const h = CABECA[f] || CABECA.redonda, sx = h.width / 100, sy = h.height / 98
+  return `translate(${h.x - 30 * sx} ${h.y - 16 * sy}) scale(${sx} ${sy})`
+}
 // corpo: escala o tronco/braços/pernas em torno do pescoço
 const CORPO = { padrao: [1, 1], magro: [0.78, 1.08], forte: [1.28, 1], baixinho: [1.08, 0.82] }
 
@@ -242,7 +247,8 @@ export default function Boneco({ spec, size = 120, busto = false, fundo = false,
       {fundo && <rect x="-20" y="-20" width="200" height="240" fill={b.fundo} />}
       {!busto && <ellipse cx="80" cy="190" rx="48" ry="7" fill="#000" opacity=".22" />}
       <ExtraAtras id={b.extra} b={b} />
-      <CabeloAtras e={b.cabelo} c={b.corCabelo} />
+      {/* cabelo e chapéu esticam junto com o formato da cabeça (foram desenhados para a redonda) */}
+      <g transform={ajusteCabeca(b.formato)}><CabeloAtras e={b.cabelo} c={b.corCabelo} /></g>
       <g transform={`translate(80 114) scale(${(CORPO[b.corpo] || CORPO.padrao).join(' ')}) translate(-80 -114)`}>
         <Corpo b={b} />
         <Bracos b={b} />
@@ -251,12 +257,12 @@ export default function Boneco({ spec, size = 120, busto = false, fundo = false,
       {(() => { const h = CABECA[b.formato] || CABECA.redonda; return <><circle cx={h.x} cy="72" r="10" fill={tom(b.pele, 0.92)} /><circle cx={h.x + h.width} cy="72" r="10" fill={tom(b.pele, 0.92)} /></> })()}
       <rect {...CABECA[b.formato] || CABECA.redonda} fill={b.pele} />
       <path d="M80 16h6c24 0 44 20 44 44v10c0 24-20 44-44 44h-6Z" fill="#000" opacity=".035" />
-      <CabeloFrente e={b.cabelo} c={b.corCabelo} />
+      <g transform={ajusteCabeca(b.formato)}><CabeloFrente e={b.cabelo} c={b.corCabelo} /></g>
       <Rosto b={b} />
       <Olhar b={b} />
       <Nariz b={b} />
       <Rosto2 id={b.rosto} b={b} />
-      <Chapeu id={b.cabeca} b={b} />
+      <g transform={ajusteCabeca(b.formato)}><Chapeu id={b.cabeca} b={b} /></g>
     </svg>
   )
 }

@@ -1,3 +1,5 @@
+// tema salvo antes de desenhar, para não piscar
+try { if (localStorage.getItem('tema') === 'claro') document.documentElement.dataset.tema = 'claro' } catch {}
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'

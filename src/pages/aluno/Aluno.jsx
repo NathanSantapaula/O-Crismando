@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Church, Shield, Trophy, Images, NotebookText, Star, BookOpen, Video, HandHeart, Lock, Check, KeyRound, X, Gift, Settings, Shirt, CalendarClock } from 'lucide-react'
 import { sb, hoje, dataBR, AREAS, STATUS, url } from '../../lib'
-import Personagem, { GUIAS, AVATAR_PADRAO, Marca } from '../../components/Personagem'
+import Personagem, { GUIAS, AVATAR_PADRAO, Marca, Bandeira } from '../../components/Personagem'
+import Objeto, { ORDEM_OBJETOS, nomeObjeto } from '../../components/Objetos'
 import { Bau, Chama, Gema, Medalha, NavIcone } from '../../components/Icones'
 import { Balao, Barra } from '../Login'
 import Licao from './Licao'
@@ -65,7 +66,7 @@ export default function Aluno({ perfil, recarregar }) {
     { id: 'inicio', nome: 'Início', el: <NavIcone tipo="inicio" /> },
     { id: 'ranking', nome: 'Ranking', el: <NavIcone tipo="ranking" /> },
     { id: 'trofeus', nome: 'Troféus', el: <NavIcone tipo="trofeus" /> },
-    { id: 'acervo', nome: 'Acervo', el: <NavIcone tipo="acervo" /> },
+    { id: 'acervo', nome: 'Credencial', el: <NavIcone tipo="acervo" /> },
     { id: 'perfil', nome: 'Perfil', el: <span className="block h-10 w-10 overflow-hidden rounded-full bg-[#E5E9EC]"><Personagem spec={avatar} busto size={40} /></span> },
   ]
 
@@ -73,7 +74,7 @@ export default function Aluno({ perfil, recarregar }) {
     <div className="app-h mx-auto max-w-[620px]">
       {aba !== 'perfil' && (
         <header ref={topoRef} className="safe-t sticky top-0 z-20 flex items-center justify-between bg-ground px-5 py-3">
-          <span className="flex items-center gap-2 text-lg"><Marca size={38} /> {encontrosFeitos}</span>
+          <span className="flex items-center gap-2 text-lg" title="Encontros completos"><Bandeira size={34} /> {encontrosFeitos}</span>
           <span className="flex items-center gap-1.5 text-lg" title="Semanas seguidas com lição" style={{ color: d.metricas.semana_feita ? '#FF9600' : '#55687A' }}>
             <Chama size={24} acesa={d.metricas.semana_feita} className={d.metricas.semana_feita ? 'chama' : ''} /> {d.metricas.streak || 0}
           </span>
@@ -125,7 +126,7 @@ function Inicio({ encontros, feito, presenca, faltas, baus, abrir, carregar, cam
       {faltas.length > 0 && (
         <button onClick={() => document.getElementById(`enc-${faltas[0].id}`)?.scrollIntoView({ behavior: 'smooth' })}
           className="mb-4 flex w-full items-center gap-3 rounded-2xl border-2 border-b-4 border-wine-dark bg-wine-soft p-3 text-left">
-          <Personagem id="teresinha" busto humor="serio" size={52} />
+          <Objeto id="pomba" size={64} className="shrink-0" />
           <span className="flex-1"><b className="block text-wine">{faltas.length} falta(s) para repor</b><span className="text-sm text-mute">Complete as lições do encontro com 70% de acerto.</span></span>
         </button>
       )}
@@ -162,14 +163,20 @@ function Inicio({ encontros, feito, presenca, faltas, baus, abrir, carregar, cam
 
             {i === 0 && campanha && (
               <button onClick={() => setCampanhaAberta(true)} className="surge relative mt-4 flex w-24 flex-col items-center rounded-2xl border-b-4 border-[#24315F] bg-[#3B4FA0] pt-1 text-white">
-                <Personagem id={campanha.guia} busto size={56} />
+                <span className="flex h-14 items-end gap-1.5 pb-1" aria-hidden="true">
+                  {['#8B5CF6', '#8B5CF6', '#F07CA8', '#8B5CF6'].map((v, k) => (
+                    <span key={k} className="flex flex-col items-center"><span className={`h-3 w-2 rounded-full ${k === 0 ? 'chama bg-[#FFB020]' : 'bg-white/15'}`} /><span className="mt-0.5 h-7 w-3.5 rounded-sm" style={{ background: v }} /></span>
+                  ))}
+                </span>
                 <span className="w-full rounded-b-xl bg-[#2C3B7A] py-1 text-sm">{Math.max(0, Math.ceil((new Date(campanha.fim) - new Date(hoje())) / 864e5))} dias</span>
               </button>
             )}
 
             <div className="relative mt-8 flex flex-col items-center gap-5">
               <div className={`pointer-events-none absolute top-[30%] ${onda(n + meio) > 0 ? 'left-0' : 'right-0'}`}>
-                <Personagem id={e.guia} mini size={96} className={e.liberado ? 'balanca' : 'opacity-50 grayscale'} />
+                {i === 0
+                  ? <Personagem id={e.guia} mini size={96} className={e.liberado ? 'balanca' : 'opacity-50 grayscale'} />
+                  : <Objeto id={ORDEM_OBJETOS[(i - 1) % ORDEM_OBJETOS.length]} size={138} className={e.liberado ? 'pula' : 'opacity-60 grayscale'} />}
               </div>
               {nos.map((no, k) => {
                 const x = onda(n++)
@@ -388,50 +395,145 @@ function Ranking({ perfil }) {
 /* ---------------- Troféus ---------------- */
 
 function Trofeus({ trofeus, conquistas, metricas }) {
+  const [filtro, setFiltro] = useState('todos')
+  const [sel, setSel] = useState(null)
+  const [giro, setGiro] = useState(0)
+  const ganho = t => conquistas.find(x => x.trofeu_id === t.id)
+  const prog = t => Math.min(1, (metricas[t.tipo] || 0) / t.meta)
+  const lista = trofeus.filter(t => filtro === 'todos' || (filtro === 'ganhos' ? ganho(t) : !ganho(t)))
+  const total = trofeus.length, feitos = trofeus.filter(ganho).length
+  const linhas = []; for (let i = 0; i < lista.length; i += 3) linhas.push(lista.slice(i, i + 3))
+  const abrir = t => { som(ganho(t) ? 'trofeu' : 'toque'); setSel(t) }
   return (
     <div className="px-4">
-      <h1 className="text-2xl font-black">Troféus</h1>
-      <p className="text-mute">Alcance as metas. Os troféus com prêmio são entregues pelo seu catequista.</p>
-      <div className="mt-5 space-y-3">
-        {trofeus.map(t => {
-          const c = conquistas.find(x => x.trofeu_id === t.id)
-          const atual = Math.min(t.meta, metricas[t.tipo] || 0)
-          return (
-            <div key={t.id} className="flex items-center gap-4 rounded-2xl border-2 border-line p-4">
-              <Medalha icone={t.icone} ativo={!!c} size={68} />
-              <div className="flex-1">
-                <b className="text-lg">{t.titulo}</b>
-                <p className="text-mute">{t.descricao}</p>
-                {!c && <div className="mt-2 flex items-center gap-2"><Barra valor={atual / t.meta} /><span className="text-sm text-mute">{atual}/{t.meta}</span></div>}
-                {t.premio && <p className={`mt-2 flex items-center gap-1.5 text-sm ${c ? 'text-sol' : 'text-mute'}`}><Gift size={16} /> {t.premio}{c ? (c.entregue ? ' · entregue' : ' · retire com seu catequista') : ''}</p>}
-              </div>
+      {/* resumo: anel com quantos foram conquistados */}
+      <div className="flex items-center gap-4 rounded-3xl border-2 border-b-4 border-line bg-surface p-4">
+        <div className="relative grid h-24 w-24 shrink-0 place-items-center">
+          <svg viewBox="0 0 100 100" className="absolute inset-0" aria-hidden="true">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="var(--color-raised)" strokeWidth="10" />
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#FFC800" strokeWidth="10" strokeLinecap="round" strokeDasharray={`${(feitos / Math.max(1, total)) * 264} 264`} transform="rotate(-90 50 50)" />
+          </svg>
+          <Medalha icone="trofeu" size={52} />
+        </div>
+        <div>
+          <h1 className="text-2xl font-black">Sala de troféus</h1>
+          <p className="text-mute"><b className="text-sol">{feitos}</b> de {total} conquistados. Toque numa medalha para ver o desafio.</p>
+        </div>
+      </div>
+      <div className="mt-4 flex gap-2">
+        {[['todos', 'Todos'], ['ganhos', 'Conquistados'], ['faltam', 'Em progresso']].map(([id, n]) => (
+          <button key={id} onClick={() => { som('toque'); setFiltro(id) }} className={`rounded-2xl border-2 px-4 py-2 text-sm font-extrabold uppercase ${filtro === id ? 'border-marian bg-marian/15 text-marian' : 'border-line text-mute'}`}>{n}</button>
+        ))}
+      </div>
+      {/* estante: três medalhas por prateleira */}
+      <div className="mt-5 space-y-6">
+        {linhas.map((l, i) => (
+          <div key={i}>
+            <div className="grid grid-cols-3 gap-2 px-2">
+              {l.map(t => {
+                const g = ganho(t)
+                return (
+                  <button key={t.id} onClick={() => abrir(t)} aria-label={t.titulo} className="flex flex-col items-center active:scale-90 transition-transform">
+                    <div className="relative grid h-24 w-24 place-items-center">
+                      {!g && <svg viewBox="0 0 100 100" className="absolute inset-0" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="none" stroke="var(--color-raised)" strokeWidth="6" /><circle cx="50" cy="50" r="44" fill="none" stroke="#3D8BFF" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${prog(t) * 276} 276`} transform="rotate(-90 50 50)" /></svg>}
+                      <div className={g ? 'pula' : ''} style={{ animationDelay: `${(t.id % 5) * 0.3}s` }}><Medalha icone={t.icone} ativo={!!g} size={g ? 80 : 64} /></div>
+                      {g && <span className="brilha absolute right-2 top-1 h-3 w-3 rotate-45 rounded-sm bg-[#FFF3B8]" />}
+                      {t.premio && <span className="absolute -bottom-1 right-1 grid h-7 w-7 place-items-center rounded-full border-2 border-ground bg-wine text-white"><Gift size={14} /></span>}
+                    </div>
+                    <span className={`mt-1 text-center text-sm leading-tight ${g ? 'text-ink' : 'text-mute'}`}>{t.titulo}</span>
+                  </button>
+                )
+              })}
             </div>
-          )
-        })}
+            <div className="mt-2 h-3 rounded-full bg-[#8A5A2E] shadow-[0_5px_0_#5B3A20]" />
+          </div>
+        ))}
+        {!lista.length && <p className="py-8 text-center text-mute">Nada por aqui ainda.</p>}
+      </div>
+
+      {sel && (() => {
+        const g = ganho(sel), atual = Math.min(sel.meta, metricas[sel.tipo] || 0)
+        return (
+          <div className="fixed inset-0 z-40 flex items-end bg-black/60" onClick={() => setSel(null)}>
+            <div onClick={ev => ev.stopPropagation()} className="sobe safe-b relative mx-auto w-full max-w-[620px] overflow-hidden rounded-t-3xl bg-surface px-6 pb-4 pt-8 text-center">
+              {g && <div className="pointer-events-none absolute inset-x-0 top-0 h-40">{[...Array(16)].map((_, i) => <span key={i} className="confete absolute h-2.5 w-1.5 rounded-sm" style={{ left: `${4 + i * 6}%`, background: ['#FFC800', '#E0455F', '#3D8BFF', '#7FB83A'][i % 4], animationDelay: `${(i % 5) * 0.12}s` }} />)}</div>}
+              {/* tocar na medalha faz ela girar */}
+              <button key={giro} onClick={() => { som(g ? 'trofeu' : 'toque'); setGiro(x => x + 1) }} aria-label="Girar medalha" className="gira mx-auto block w-fit">
+                <Medalha icone={sel.icone} ativo={!!g} size={140} />
+              </button>
+              <h2 className="mt-3 text-2xl font-black">{sel.titulo}</h2>
+              <p className="text-mute">{sel.descricao}</p>
+              {g ? <p className="mt-3 font-extrabold text-sol">Conquistado em {new Date(g.created_at).toLocaleDateString('pt-BR')}</p>
+                : <div className="mt-4 flex items-center gap-3"><Barra valor={atual / sel.meta} cor="bg-marian" /><span className="font-extrabold text-marian">{atual}/{sel.meta}</span></div>}
+              {sel.premio && (
+                <div className="mt-4 flex items-center gap-3 rounded-2xl border-2 border-dashed border-wine p-3 text-left">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-wine text-white"><Gift size={22} /></span>
+                  <span><b className="block">{sel.premio}</b><span className="text-sm text-mute">{g ? (g.entregue ? 'Já entregue pelo catequista.' : 'Retire com seu catequista no próximo encontro!') : 'Prêmio de verdade, entregue pelo catequista.'}</span></span>
+                </div>
+              )}
+              <button className="btn btn-sol mt-5" onClick={() => setSel(null)}>{g ? 'Glória a Deus!' : 'Bora conquistar'}</button>
+            </div>
+          </div>
+        )
+      })()}
+    </div>
+  )
+}
+
+/* ---------------- Credencial do peregrino (fotos e materiais de cada encontro) ---------------- */
+
+const TINTA = ['#E0455F', '#3D8BFF', '#7FB83A', '#8B5CF6', '#FF8A3D', '#29B39A']
+
+// carimbo redondo com borda serrilhada, o objeto do encontro no meio e a data
+function Carimbo({ e, i, marcado, bloqueado, batendo }) {
+  const cor = bloqueado ? '#5B6E80' : TINTA[i % TINTA.length]
+  const dentes = [...Array(28)].map((_, k) => { const a = (k / 28) * Math.PI * 2; return `${50 + Math.cos(a) * 46},${50 + Math.sin(a) * 46} ${50 + Math.cos(a + Math.PI / 28) * 42},${50 + Math.sin(a + Math.PI / 28) * 42}` }).join(' ')
+  return (
+    <div className={`relative ${batendo ? 'carimbar' : ''}`} style={{ transform: `rotate(${((i * 37) % 17) - 8}deg)` }}>
+      <svg viewBox="0 0 100 100" className="w-full" aria-hidden="true">
+        <polygon points={dentes} fill={marcado ? cor : 'none'} stroke={cor} strokeWidth="2.5" strokeDasharray={marcado ? '' : '4 4'} opacity={marcado ? 1 : 0.7} />
+        <circle cx="50" cy="50" r="34" fill={marcado ? '#FFF8E6' : 'none'} stroke={marcado ? '#fff' : cor} strokeWidth="2" strokeDasharray={marcado ? '' : '3 4'} opacity={marcado ? 1 : 0.6} />
+        <path id={`arco${e.id}`} d="M22 50a28 28 0 0 1 56 0" fill="none" />
+        <text fontSize="8.5" fontWeight="900" fill={marcado ? cor : '#8EA3B5'} letterSpacing="1"><textPath href={`#arco${e.id}`} startOffset="50%" textAnchor="middle">ENCONTRO {e.ordem}</textPath></text>
+        <text x="50" y="80" textAnchor="middle" fontSize="7.5" fontWeight="800" fill={marcado ? cor : '#8EA3B5'}>{e.data ? dataBR(e.data).toUpperCase() : 'EM BREVE'}</text>
+      </svg>
+      <div className={`absolute left-1/2 top-1/2 grid h-[44%] w-[56%] -translate-x-1/2 -translate-y-1/2 place-items-center ${marcado ? '' : 'opacity-40 grayscale'}`}>
+        {bloqueado ? <Lock size={22} color="#8EA3B5" /> : i === 0 ? <Marca size={26} /> : <Objeto id={ORDEM_OBJETOS[(i - 1) % ORDEM_OBJETOS.length]} size={58} />}
       </div>
     </div>
   )
 }
 
-/* ---------------- Acervo ---------------- */
-
-function Acervo({ encontros }) {
+function Acervo({ encontros, presenca }) {
   const [aberto, setAberto] = useState(null)
-  const lista = encontros.filter(e => e.liberado)
+  const [batendo, setBatendo] = useState(null)
+  const carimbados = encontros.filter(e => presenca(e.id)).length
+  const tocar = e => {
+    if (!e.liberado) return
+    if (presenca(e.id)) { som('presenca'); setBatendo(e.id); setTimeout(() => { setBatendo(null); setAberto(e) }, 420) }
+    else { som('toque'); setAberto(e) }
+  }
   return (
     <div className="px-4">
-      <h1 className="text-2xl font-black">Acervo</h1>
-      <p className="text-mute">Fotos e materiais de todos os encontros.</p>
-      <div className="mt-5 grid grid-cols-2 gap-3">
-        {lista.map(e => (
-          <button key={e.id} onClick={() => setAberto(e)} className="overflow-hidden rounded-2xl border-2 border-b-4 border-line text-left active:translate-y-[2px]">
-            <div className="relative grid aspect-square place-items-center bg-surface">
-              <Personagem id={e.guia} mini size={80} />
-              {(e.foto_url || e.imagem_url) && <img src={url(e.foto_url || e.imagem_url)} alt="" className="absolute inset-0 h-full w-full object-cover" onError={ev => (ev.currentTarget.style.display = 'none')} />}
-            </div>
-            <p className="p-3 leading-tight">{e.titulo}<span className="block text-sm text-mute">{dataBR(e.data)}</span></p>
-          </button>
-        ))}
+      {/* capa da credencial */}
+      <div className="relative overflow-hidden rounded-3xl border-b-4 border-[#5E1622] bg-[#8E1F35] p-5 text-[#FFF3D6]">
+        <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full border-[10px] border-[#FFC800]/25" />
+        <p className="text-sm font-extrabold uppercase tracking-widest text-[#FFC800]">Credencial do peregrino</p>
+        <h1 className="mt-1 text-2xl font-black">Meu caminho até a Crisma</h1>
+        <p className="mt-1 opacity-85">Cada presença ganha um carimbo. Toque para ver fotos e materiais do encontro.</p>
+        <div className="mt-3 flex items-center gap-3"><Barra valor={carimbados / Math.max(1, encontros.length)} /><b className="text-[#FFC800]">{carimbados}/{encontros.length}</b></div>
+      </div>
+      {/* páginas com os carimbos */}
+      <div className="mt-5 rounded-3xl border-2 border-b-4 border-line bg-[#FFF8E6] p-4" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent 0 31px, #F1E4C7 31px 32px)' }}>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+          {encontros.map((e, i) => (
+            <button key={e.id} disabled={!e.liberado} onClick={() => tocar(e)} className="text-center disabled:cursor-default active:scale-95 transition-transform">
+              <Carimbo e={e} i={i} marcado={!!presenca(e.id)} bloqueado={!e.liberado} batendo={batendo === e.id} />
+              <p className="mt-1 text-sm font-extrabold leading-tight text-[#3A2E28]">{e.titulo}</p>
+              {e.foto_url && <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-[#3A2E28] px-2 py-0.5 text-xs text-[#FFF3D6]"><Images size={12} /> foto</span>}
+            </button>
+          ))}
+        </div>
       </div>
       {aberto && <Guia e={aberto} fechar={() => setAberto(null)} />}
     </div>
@@ -439,6 +541,24 @@ function Acervo({ encontros }) {
 }
 
 /* ---------------- Perfil ---------------- */
+
+function BotaoTema() {
+  const [claro, setClaro] = useState(document.documentElement.dataset.tema === 'claro')
+  const trocar = () => {
+    const v = !claro; setClaro(v); som('toque')
+    document.documentElement.dataset.tema = v ? 'claro' : 'escuro'
+    try { localStorage.setItem('tema', v ? 'claro' : 'escuro') } catch {}
+  }
+  return (
+    <button onClick={trocar} className="mt-3 flex w-full items-center justify-between rounded-2xl border-2 border-b-4 border-line px-4 py-3 active:translate-y-[2px]">
+      <span className="text-lg">Tema</span>
+      <span className="flex rounded-xl bg-raised p-1 text-sm font-extrabold uppercase">
+        <span className={`rounded-lg px-3 py-1 ${!claro ? 'bg-ground text-ink' : 'text-mute'}`}>Escuro</span>
+        <span className={`rounded-lg px-3 py-1 ${claro ? 'bg-sol text-[#2A2000]' : 'text-mute'}`}>Claro</span>
+      </span>
+    </button>
+  )
+}
 
 function BotaoSom() {
   const [ligado, setLigado] = useState(somLigado())
@@ -484,6 +604,7 @@ function Perfil({ perfil, avatar, metricas, conquistas, trofeus, presencas, setE
           {trofeus.map(t => <div key={t.id} title={t.titulo}><Medalha icone={t.icone} ativo={conquistas.some(c => c.trofeu_id === t.id)} size={54} /></div>)}
         </div>
         <BotaoSom />
+        <BotaoTema />
         <h2 className="mt-7 text-xl font-black">Meu plano de vida</h2>
         <div className="mt-3 space-y-2">
           {metas.length === 0 && <p className="text-mute">Seu catequista ainda não definiu metas com você.</p>}

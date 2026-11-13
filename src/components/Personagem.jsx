@@ -5,6 +5,7 @@ import { url } from '../lib'
 
 import { useId } from 'react'
 import RIG from './rig.json'
+import Boneco from './Boneco'
 
 export const PELES = ['#FCE3D4', '#F8CDB5', '#F2C3A0', '#E8B48E', '#D99E76', '#C2865E', '#A66C47', '#8A5536', '#6E412A', '#55301F']
 export const CABELO_CORES = ['#2B2F3A', '#4A2F1F', '#6B4A33', '#8B5A3C', '#A87447', '#D9A55B', '#E9C988', '#9B9B9B', '#E6E2DC', '#3A3F5C']
@@ -381,6 +382,8 @@ function Item({ id, pele }) {
 /* =================== figura =================== */
 
 export default function Personagem({ id, spec, humor, size = 120, sombra = true, className = '', busto = false, mini = false, animado = true, falando = false }) {
+  // avatar do aluno: boneco novo (Boneco.jsx)
+  if (spec) return <Boneco spec={spec} size={size} busto={busto} className={className} />
   // única imagem de Jesus do app: todo guia mostra a mesma arte
   if (!spec && id) return <Marca size={Math.round(size * (busto ? 0.95 : 1.3))} className={className} largura />
   if (!spec && RIG[id]) return <Arte id={id} size={size} className={className} busto={busto} mini={mini} animado={animado} falando={falando} />

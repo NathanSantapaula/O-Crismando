@@ -1,98 +1,108 @@
 import { useState } from 'react'
-import { X, Smile, Shirt, Scissors, Glasses, Palette } from 'lucide-react'
+import { X, Palette, Scissors, Smile, Shirt, Crown, Glasses, Sparkles, Shuffle } from 'lucide-react'
 import { sb } from '../../lib'
-import Personagem, { AVATAR_PADRAO, PELES, CABELO_CORES, OLHO_CORES, ROUPA_CORES, OPCOES } from '../../components/Personagem'
+import { som } from '../../sons'
+import Boneco, { normalizar, OPCOES, NOMES, PELES, CORES_CABELO, CORES_OLHO, CORES_ROUPA, FUNDOS } from '../../components/Boneco'
 
 const ABAS = [
-  { id: 'pele', Icone: Palette, nome: 'Pele' },
-  { id: 'roupa', Icone: Shirt, nome: 'Roupa' },
-  { id: 'rosto', Icone: Smile, nome: 'Rosto' },
+  { id: 'pele', Icone: Palette, nome: 'Pele e fundo' },
   { id: 'cabelo', Icone: Scissors, nome: 'Cabelo' },
-  { id: 'extra', Icone: Glasses, nome: 'Acessórios' },
+  { id: 'rosto', Icone: Smile, nome: 'Rosto' },
+  { id: 'roupa', Icone: Shirt, nome: 'Roupa' },
+  { id: 'cabeca', Icone: Crown, nome: 'Na cabeça' },
+  { id: 'detalhe', Icone: Glasses, nome: 'Detalhes' },
+  { id: 'extra', Icone: Sparkles, nome: 'Itens' },
 ]
-const NOMES = {
-  curto: 'Curto', topete: 'Topete', cacheado: 'Cacheado', longo: 'Longo', coque: 'Coque', tranca: 'Trança', raspado: 'Raspado', careca: 'Careca',
-  nenhuma: 'Sem barba', bigode: 'Bigode', curta: 'Barba curta', cheia: 'Barba cheia',
-  feliz: 'Feliz', sorriso: 'Sorrisão', surpreso: 'Surpreso', piscando: 'Piscadinha', serio: 'Sério', determinado: 'Determinado',
-  camiseta: 'Camiseta', moletom: 'Moletom', camisa: 'Camisa', tunica: 'Túnica',
-  nenhum: 'Nenhum', oculos: 'Óculos', terco: 'Terço', cruz: 'Cruz', veu: 'Véu', bone: 'Boné',
-}
+const sorteia = l => l[Math.floor(Math.random() * l.length)]
 
 export default function Avatar({ perfil, onFim }) {
-  const [a, setA] = useState({ ...AVATAR_PADRAO, ...perfil.avatar })
+  const [b, setB] = useState(normalizar(perfil.avatar))
   const [aba, setAba] = useState('pele')
+  const [pulo, setPulo] = useState(0)
   const [salvando, setSalvando] = useState(false)
-  const set = patch => setA({ ...a, ...patch })
+  const mudar = patch => { som('selecionar'); setB(x => ({ ...x, ...patch })); setPulo(p => p + 1) }
 
+  function surpresa() {
+    som('bau'); setPulo(p => p + 1)
+    setB(x => ({ ...x, pele: sorteia(PELES), olhos: sorteia(CORES_OLHO), expressao: sorteia(OPCOES.expressao), cabelo: sorteia(OPCOES.cabelo), corCabelo: sorteia(CORES_CABELO),
+      roupa: sorteia(OPCOES.roupa), corRoupa: sorteia(CORES_ROUPA), cabeca: sorteia(OPCOES.cabeca), rosto: sorteia(OPCOES.rosto), extra: sorteia(OPCOES.extra), fundo: sorteia(FUNDOS) }))
+  }
   async function salvar() {
-    setSalvando(true)
-    await sb.from('profiles').update({ avatar: a }).eq('id', perfil.id)
-    onFim()
+    setSalvando(true); som('concluir')
+    await sb.from('profiles').update({ avatar: b }).eq('id', perfil.id)
+    setTimeout(onFim, 500)
   }
 
-  const Cores = ({ titulo, lista, valor, onPick }) => (
+  const Cores = ({ titulo, lista, campo }) => (
     <section className="mb-7">
-      <h3 className="mb-3 text-xl font-black">{titulo}</h3>
-      <div className="grid grid-cols-5 gap-3">
+      <h3 className="mb-3 text-lg font-black">{titulo}</h3>
+      <div className="grid grid-cols-6 gap-2">
         {lista.map(c => (
-          <button key={c} onClick={() => onPick(c)} aria-label={`Cor ${c}`} aria-pressed={valor === c}
-            className={`grid aspect-square place-items-center rounded-2xl border-2 ${valor === c ? 'border-marian bg-[#16304F]' : 'border-line'}`}>
-            <span className="h-3/5 w-3/5 rounded-xl" style={{ background: c }} />
+          <button key={c} onClick={() => mudar({ [campo]: c })} aria-label={`${titulo} ${c}`} aria-pressed={b[campo] === c}
+            className={`grid aspect-square place-items-center rounded-2xl border-2 border-b-4 transition-transform active:scale-90 ${b[campo] === c ? 'border-marian bg-marian/15' : 'border-line'}`}>
+            <span className="h-3/5 w-3/5 rounded-xl" style={{ background: c, boxShadow: 'inset 0 -3px 0 rgba(0,0,0,.18)' }} />
           </button>
         ))}
       </div>
     </section>
   )
-  const Opcoes = ({ titulo, lista, valor, montar }) => (
+  const Pecas = ({ titulo, campo, cols = 3 }) => (
     <section className="mb-7">
-      <h3 className="mb-3 text-xl font-black">{titulo}</h3>
-      <div className="grid grid-cols-3 gap-3">
-        {lista.map(o => (
-          <button key={o} onClick={() => setA(montar(o))} aria-pressed={valor === o}
-            className={`flex flex-col items-center rounded-2xl border-2 pb-2 pt-1 ${valor === o ? 'border-marian bg-[#16304F]' : 'border-line'}`}>
-            <Personagem spec={montar(o)} busto sombra={false} size={78} />
-            <span className="text-sm text-mute">{NOMES[o]}</span>
-          </button>
-        ))}
+      <h3 className="mb-3 text-lg font-black">{titulo}</h3>
+      <div className={`grid gap-3 ${cols === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}>
+        {OPCOES[campo].map(o => {
+          const sel = b[campo] === o
+          return (
+            <button key={o} onClick={() => mudar({ [campo]: o })} aria-pressed={sel}
+              className={`relative flex flex-col items-center overflow-hidden rounded-2xl border-2 border-b-4 pb-1.5 transition-transform active:scale-95 ${sel ? 'border-marian bg-marian/15' : 'border-line bg-surface'}`}>
+              <Boneco spec={{ ...b, [campo]: o }} busto size={cols === 4 ? 64 : 84} />
+              <span className="px-1 text-center text-xs font-extrabold leading-tight text-mute">{NOMES[o]}</span>
+              {sel && <span className="absolute right-1.5 top-1.5 h-3 w-3 rounded-full bg-marian" />}
+            </button>
+          )
+        })}
       </div>
     </section>
   )
 
   return (
-    <main className="app-h mx-auto flex max-w-[620px] flex-col bg-surface">
-      <div className="safe-t bg-[#E5E9EC] text-ground">
-        <header className="flex items-center px-4 py-3">
-          <button onClick={onFim} aria-label="Fechar"><X size={32} /></button>
-          <h1 className="flex-1 text-center text-xl">Escolha o seu visual</h1>
-          <button onClick={salvar} disabled={salvando} className="rounded-2xl border-b-4 border-[#C9D2DA] bg-white px-4 py-2 font-extrabold uppercase tracking-wider active:translate-y-[2px]">Salvar</button>
+    <main className="app-h mx-auto flex max-w-[620px] flex-col bg-ground">
+      {/* palco: boneco sobre o fundo escolhido, pula a cada troca */}
+      <div className="safe-t relative overflow-hidden" style={{ background: b.fundo }}>
+        <div className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-white/15" />
+        <div className="absolute -bottom-16 -right-10 h-48 w-48 rounded-full bg-black/10" />
+        <header className="relative flex items-center px-4 py-3 text-white">
+          <button onClick={onFim} aria-label="Fechar" className="grid h-10 w-10 place-items-center rounded-full bg-black/20"><X size={24} /></button>
+          <h1 className="flex-1 text-center text-xl font-black drop-shadow">Monte seu visual</h1>
+          <button onClick={surpresa} aria-label="Surpreenda-me" className="grid h-10 w-10 place-items-center rounded-full bg-black/20"><Shuffle size={22} /></button>
         </header>
-        <div className="flex justify-center"><Personagem spec={a} sombra={false} size={190} /></div>
+        <div className="relative flex justify-center pb-4">
+          <div key={pulo} className="surge"><Boneco spec={b} size={200} /></div>
+        </div>
       </div>
 
-      <nav className="sticky top-0 z-10 flex border-b-2 border-line bg-surface">
+      <nav className="sticky top-0 z-10 flex gap-1 overflow-x-auto border-b-2 border-line bg-ground px-2 py-2">
         {ABAS.map(({ id, Icone, nome }) => (
-          <button key={id} onClick={() => setAba(id)} aria-label={nome} aria-current={aba === id}
-            className={`flex flex-1 justify-center border-b-4 py-4 ${aba === id ? 'border-marian text-marian' : 'border-transparent text-mute'}`}><Icone size={30} /></button>
+          <button key={id} onClick={() => { som('toque'); setAba(id) }} aria-label={nome} aria-current={aba === id}
+            className={`flex shrink-0 flex-col items-center rounded-2xl border-2 px-3 py-1.5 ${aba === id ? 'border-marian bg-marian/15 text-marian' : 'border-transparent text-mute'}`}>
+            <Icone size={24} /><span className="text-[11px] font-extrabold">{nome}</span>
+          </button>
         ))}
       </nav>
 
-      <div className="flex-1 px-4 py-6">
-        {aba === 'pele' && <Cores titulo="Tom da pele" lista={PELES} valor={a.pele} onPick={c => set({ pele: c })} />}
-        {aba === 'roupa' && <>
-          <Opcoes titulo="Roupa" lista={OPCOES.roupa} valor={a.roupa.tipo} montar={o => ({ ...a, roupa: { ...a.roupa, tipo: o } })} />
-          <Cores titulo="Cor da roupa" lista={ROUPA_CORES} valor={a.roupa.cor} onPick={c => set({ roupa: { ...a.roupa, cor: c } })} />
-        </>}
-        {aba === 'rosto' && <>
-          <Cores titulo="Cor dos olhos" lista={OLHO_CORES} valor={a.olhos} onPick={c => set({ olhos: c })} />
-          <Opcoes titulo="Expressão" lista={OPCOES.expressao} valor={a.expressao} montar={o => ({ ...a, expressao: o })} />
-        </>}
-        {aba === 'cabelo' && <>
-          <Opcoes titulo="Cabelo" lista={OPCOES.cabelo} valor={a.cabelo.estilo} montar={o => ({ ...a, cabelo: { ...a.cabelo, estilo: o } })} />
-          <Cores titulo="Cor do cabelo" lista={CABELO_CORES} valor={a.cabelo.cor} onPick={c => set({ cabelo: { ...a.cabelo, cor: c }, barba: { ...a.barba, cor: c } })} />
-          <Opcoes titulo="Barba" lista={OPCOES.barba} valor={a.barba.estilo} montar={o => ({ ...a, barba: { ...a.barba, estilo: o } })} />
-        </>}
-        {aba === 'extra' && <Opcoes titulo="Acessórios" lista={OPCOES.acessorio} valor={a.acessorio} montar={o => ({ ...a, acessorio: o })} />}
+      <div className="flex-1 px-4 py-5">
+        {aba === 'pele' && <><Cores titulo="Tom da pele" lista={PELES} campo="pele" /><Cores titulo="Cor do fundo" lista={FUNDOS} campo="fundo" /></>}
+        {aba === 'cabelo' && <><Pecas titulo="Penteado" campo="cabelo" /><Cores titulo="Cor do cabelo" lista={CORES_CABELO} campo="corCabelo" /></>}
+        {aba === 'rosto' && <><Pecas titulo="Expressão" campo="expressao" cols={4} /><Cores titulo="Cor dos olhos" lista={CORES_OLHO} campo="olhos" /></>}
+        {aba === 'roupa' && <><Pecas titulo="Roupa" campo="roupa" /><Cores titulo="Cor da roupa" lista={CORES_ROUPA} campo="corRoupa" /></>}
+        {aba === 'cabeca' && <Pecas titulo="Na cabeça" campo="cabeca" cols={4} />}
+        {aba === 'detalhe' && <Pecas titulo="Detalhes do rosto" campo="rosto" cols={4} />}
+        {aba === 'extra' && <Pecas titulo="Itens" campo="extra" />}
       </div>
+
+      <footer className="safe-b sticky bottom-0 border-t-2 border-line bg-ground px-4 pt-3">
+        <button className="btn btn-sol mb-2" disabled={salvando} onClick={salvar}>{salvando ? 'Salvo!' : 'Salvar visual'}</button>
+      </footer>
     </main>
   )
 }

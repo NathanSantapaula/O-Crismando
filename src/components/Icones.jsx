@@ -19,19 +19,32 @@ export function Bau({ aberto = false, size = 72, apagado = false }) {
   )
 }
 
+// Chama de Pentecostes da ofensiva: língua de fogo com rostinho; apagada fica cinza e dormindo
 export function Chama({ size = 28, acesa = true, className = '' }) {
+  const [fora, meio, dentro] = acesa ? ['#FF7A1A', '#FFA826', '#FFE066'] : ['#3A4A58', '#47596A', '#5B6E80']
   return (
-    <svg viewBox="0 0 24 28" width={size} height={size * 1.15} className={className} aria-hidden>
-      <path d="M12 1c1 5 7 8 7 15a7 7 0 0 1-14 0c0-4 2-6 4-8 0 3 1 4 2 4 0-4 0-8 1-11Z" fill={acesa ? '#FF9600' : '#3A4A58'} />
-      <path d="M12 12c1 3 4 4 4 8a4 4 0 0 1-8 0c0-2 1-3 2-4 0 1 1 2 1 2 0-2 0-4 1-6Z" fill={acesa ? '#FFC800' : '#55687A'} />
+    <svg viewBox="0 0 32 38" width={size} height={size * 1.19} className={className} aria-hidden="true">
+      <path d="M16 1c1.5 6 10 9.5 10 20a10 10 0 0 1-20 0c0-5 2.5-8 5-10.5.3 3 1.5 4.8 3 5.5C13.5 10 14 5 16 1Z" fill={fora} />
+      <path d="M16 9c1 4 7 6.5 7 13.5a7 7 0 0 1-14 0c0-3.5 1.8-5.6 3.6-7.4.2 2 1.1 3.3 2.2 3.8C14.6 15.5 15 12 16 9Z" fill={meio} />
+      <path d="M16 18c.6 2.4 4 3.8 4 7.2a4 4 0 0 1-8 0c0-2 1-3.2 2-4.2.1 1.1.6 1.8 1.2 2.1 0-1.9.2-3.4.8-5.1Z" fill={dentro} />
+      {acesa
+        ? <><circle cx="13.3" cy="26" r="1.3" fill="#7A2E00" /><circle cx="18.7" cy="26" r="1.3" fill="#7A2E00" /><path d="M14 29q2 1.6 4 0" stroke="#7A2E00" strokeWidth="1.2" fill="none" strokeLinecap="round" /></>
+        : <path d="M12 26.5h2.6M17.4 26.5H20" stroke="#26323D" strokeWidth="1.3" strokeLinecap="round" />}
+      <path d="M9.5 18q-1 3 0 6" stroke="#fff" strokeOpacity=".45" strokeWidth="1.6" fill="none" strokeLinecap="round" />
     </svg>
   )
 }
 
+// XP = graça: medalhinha dourada com a cruz e brilho
 export function Gema({ size = 24 }) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden>
-      <path d="M12 2 21 8v8l-9 6-9-6V8Z" fill="#3D8BFF" /><path d="M12 2 21 8l-9 4-9-4Z" fill="#7FB2FF" /><path d="M12 12v10l-9-6V8Z" fill="#2361C4" />
+    <svg viewBox="0 0 32 32" width={size} height={size} aria-hidden="true">
+      <circle cx="16" cy="17" r="13" fill="#C98A12" />
+      <circle cx="16" cy="15.5" r="13" fill="#FFC800" />
+      <circle cx="16" cy="15.5" r="9.5" fill="#FFDB4D" />
+      <path d="M14.4 8.5h3.2v4.2h4.2v3.2h-4.2v7.6h-3.2v-7.6h-4.2v-3.2h4.2Z" fill="#C98A12" />
+      <path d="M8 11a9 9 0 0 1 5-4.6" stroke="#fff" strokeWidth="2" strokeLinecap="round" fill="none" opacity=".7" />
+      <path d="M26 4l.8 1.8L28.6 6.6 26.8 7.4 26 9.2 25.2 7.4 23.4 6.6 25.2 5.8Z" fill="#FFF3B8" />
     </svg>
   )
 }
@@ -47,14 +60,21 @@ const DESENHOS = {
 }
 const CORES = { pomba: '#3D8BFF', livro: '#E0455F', chama: '#FF9600', igreja: '#7FB83A', cajado: '#8B5CF6', sol: '#FFC800', trofeu: '#FFC800' }
 
+// Medalha de conquista: fita de duas pontas, aro dourado, disco na cor do troféu e brilho
 export function Medalha({ icone = 'trofeu', ativo = true, size = 64 }) {
-  const c = ativo ? CORES[icone] || '#FFC800' : '#3A4A58'
+  const c = ativo ? CORES[icone] || '#FFC800' : '#4A5D70'
+  const fita = ativo ? ['#E0455F', '#3D8BFF'] : ['#33475A', '#2A3A4A']
+  const aro = ativo ? ['#FFD84D', '#C98A12'] : ['#5B6E80', '#3E5063']
   return (
-    <svg viewBox="-30 -32 60 64" width={size} height={size} aria-hidden>
-      <path d="M0-30 26-15v30L0 30-26 15v-30Z" fill={c} />
-      <path d="M0-30 26-15v30L0 30Z" fill="#000" opacity=".14" />
-      <path d="M0-23 20-11.5v23L0 23-20 11.5v-23Z" fill="#fff" opacity=".18" />
-      <g opacity={ativo ? 1 : 0.35}>{DESENHOS[icone] || DESENHOS.trofeu}</g>
+    <svg viewBox="-34 -34 68 76" width={size} height={size * 1.12} aria-hidden="true">
+      <path d="M-15 14-22 40-12 35-6 42 1 16Z" fill={fita[0]} /><path d="M15 14 22 40 12 35 6 42-1 16Z" fill={fita[1]} />
+      <circle r="28" cy="2" fill={aro[1]} />
+      <circle r="28" fill={aro[0]} />
+      {[...Array(16)].map((_, i) => <circle key={i} r="1.6" cx={Math.cos((i / 16) * Math.PI * 2) * 24.5} cy={Math.sin((i / 16) * Math.PI * 2) * 24.5} fill={aro[1]} opacity=".55" />)}
+      <circle r="20" fill={c} />
+      <path d="M0-20a20 20 0 0 1 20 20H0Z" fill="#000" opacity=".1" />
+      <g opacity={ativo ? 1 : 0.4} transform="scale(.82)">{DESENHOS[icone] || DESENHOS.trofeu}</g>
+      <path d="M-15-12a19 19 0 0 1 12-9" stroke="#fff" strokeWidth="3" strokeLinecap="round" fill="none" opacity={ativo ? 0.6 : 0.2} />
     </svg>
   )
 }
@@ -81,9 +101,11 @@ export function NavIcone({ tipo, size = 42 }) {
       <rect x="16" y="9" width="3.5" height="10" rx="1.75" fill="#FFF3B8" />
     </>)
     case 'acervo': return svg(<>
-      <rect x="4" y="7" width="40" height="34" rx="8" fill="#F27DB0" />
-      <path d="M11 34l9-10 6 6 4-4 7 8Z" fill="#FFF0F7" />
-      <circle cx="31" cy="17" r="4" fill="#FFF0F7" />
+      <rect x="8" y="4" width="32" height="40" rx="6" fill="#B3263E" />
+      <rect x="8" y="4" width="7" height="40" rx="3" fill="#8E1F35" />
+      <circle cx="27" cy="21" r="8.5" fill="none" stroke="#FFC800" strokeWidth="3" />
+      <path d="M27 15.5v11M22 19.5h10" stroke="#FFC800" strokeWidth="2.6" strokeLinecap="round" />
+      <rect x="19" y="34" width="16" height="3.5" rx="1.75" fill="#FFC800" />
     </>)
     default: return null
   }

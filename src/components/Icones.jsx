@@ -65,7 +65,7 @@ export function NavIcone({ tipo, size = 42 }) {
   switch (tipo) {
     case 'inicio': return svg(<>
       <path d="M24 1.5v10M20 5.2h8" stroke="#FFC800" strokeWidth="3.6" strokeLinecap="round" />
-      <rect x="10" y="23" width="28" height="22" rx="5" fill="#FFC800" />
+      <path d="M10 27 24 17.5 38 27v13a5 5 0 0 1-5 5H15a5 5 0 0 1-5-5Z" fill="#FFC800" />
       <path d="M6.5 27 24 15.5 41.5 27" stroke="#F04E55" strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M19.5 45V36.5a4.5 4.5 0 0 1 9 0V45Z" fill="#B05A2C" />
     </>)

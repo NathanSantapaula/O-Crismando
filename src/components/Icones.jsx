@@ -58,3 +58,33 @@ export function Medalha({ icone = 'trofeu', ativo = true, size = 64 }) {
     </svg>
   )
 }
+
+// Ícones da barra inferior: silhueta simples, cor chapada, um detalhe só. Sempre coloridos.
+export function NavIcone({ tipo, size = 42 }) {
+  const svg = c => <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true">{c}</svg>
+  switch (tipo) {
+    case 'inicio': return svg(<>
+      <path d="M10 22h28v18a5 5 0 0 1-5 5H15a5 5 0 0 1-5-5Z" fill="#FFC800" />
+      <path d="M4.5 22.5 22 8.6a3.2 3.2 0 0 1 4 0l17.5 13.9a3 3 0 0 1-3.7 4.7L24 14.6 8.2 27.2a3 3 0 0 1-3.7-4.7Z" fill="#F04E55" />
+      <path d="M22 1.5h4v6h3.5v3.8H26V15h-4v-3.7h-3.5V7.5H22Z" fill="#FFC800" />
+      <path d="M18.5 45V35.5a5.5 5.5 0 0 1 11 0V45Z" fill="#B05A2C" />
+    </>)
+    case 'ranking': return svg(<>
+      <path d="M24 3.5 40 9.5v12.8C40 33.5 33.2 41.6 24 45c-9.2-3.4-16-11.5-16-22.7V9.5Z" fill="#4FB4FF" />
+      <path d="m24 15 3 6.1 6.7 1-4.8 4.7 1.1 6.6-6-3.1-6 3.1 1.1-6.6-4.8-4.7 6.7-1Z" fill="#FFFFFF" />
+    </>)
+    case 'trofeus': return svg(<>
+      <path d="M13 10H7.5C7.5 18 10 22 15 23M35 10h5.5c0 8-2.5 12-7.5 13" stroke="#FFC800" strokeWidth="4.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M11 5h26v12.5a13 13 0 0 1-26 0Z" fill="#FFC800" />
+      <path d="M21 30h6v7h-6Z" fill="#FFC800" />
+      <rect x="13" y="36" width="22" height="9" rx="4.5" fill="#B3263E" />
+      <rect x="16" y="9" width="3.5" height="10" rx="1.75" fill="#FFF3B8" />
+    </>)
+    case 'acervo': return svg(<>
+      <rect x="4" y="7" width="40" height="34" rx="8" fill="#F27DB0" />
+      <path d="M11 34l9-10 6 6 4-4 7 8Z" fill="#FFF0F7" />
+      <circle cx="31" cy="17" r="4" fill="#FFF0F7" />
+    </>)
+    default: return null
+  }
+}

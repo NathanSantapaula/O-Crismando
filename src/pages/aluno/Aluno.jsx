@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Church, Shield, Trophy, Images, NotebookText, Star, BookOpen, Video, HandHeart, Lock, Check, KeyRound, X, Gift, Settings, Shirt, CalendarClock } from 'lucide-react'
 import { sb, hoje, dataBR, AREAS, STATUS, url } from '../../lib'
 import Personagem, { GUIAS, AVATAR_PADRAO, Bandeira } from '../../components/Personagem'
-import { Bau, Chama, Gema, Medalha } from '../../components/Icones'
+import { Bau, Chama, Gema, Medalha, NavIcone } from '../../components/Icones'
 import { Balao, Barra } from '../Login'
 import Licao from './Licao'
 import Avatar from './Avatar'
@@ -54,11 +54,11 @@ export default function Aluno({ perfil, recarregar }) {
   const encontrosFeitos = d.metricas.encontros || 0
 
   const ABAS = [
-    { id: 'inicio', nome: 'Início', el: <Church size={30} strokeWidth={2.4} /> },
-    { id: 'ranking', nome: 'Ranking', el: <Shield size={30} strokeWidth={2.4} /> },
-    { id: 'trofeus', nome: 'Troféus', el: <Trophy size={30} strokeWidth={2.4} /> },
-    { id: 'acervo', nome: 'Acervo', el: <Images size={30} strokeWidth={2.4} /> },
-    { id: 'perfil', nome: 'Perfil', el: <span className="block h-9 w-9 overflow-hidden rounded-full bg-[#E5E9EC]"><Personagem spec={avatar} busto size={36} /></span> },
+    { id: 'inicio', nome: 'Início', el: <NavIcone tipo="inicio" /> },
+    { id: 'ranking', nome: 'Ranking', el: <NavIcone tipo="ranking" /> },
+    { id: 'trofeus', nome: 'Troféus', el: <NavIcone tipo="trofeus" /> },
+    { id: 'acervo', nome: 'Acervo', el: <NavIcone tipo="acervo" /> },
+    { id: 'perfil', nome: 'Perfil', el: <span className="block h-10 w-10 overflow-hidden rounded-full bg-[#E5E9EC]"><Personagem spec={avatar} busto size={40} /></span> },
   ]
 
   return (
@@ -85,7 +85,7 @@ export default function Aluno({ perfil, recarregar }) {
       <nav className="safe-b fixed inset-x-0 bottom-0 z-20 mx-auto flex max-w-[620px] justify-around border-t-2 border-line bg-ground px-2 pt-2">
         {ABAS.map(a => (
           <button key={a.id} onClick={() => { setAba(a.id); scrollTo(0, 0) }} aria-label={a.nome} aria-current={aba === a.id}
-            className={`relative grid h-14 w-16 place-items-center rounded-2xl border-2 ${aba === a.id ? 'border-marian bg-[#16304F] text-sol' : 'border-transparent text-mute'}`}>
+            className={`relative grid h-[60px] w-[68px] place-items-center rounded-2xl border-[3px] ${aba === a.id ? 'border-[#4FB4FF] bg-[#16304F]' : 'border-transparent'}`}>
             {a.el}
             {a.id === 'inicio' && faltas.length > 0 && <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-wine px-1 text-xs text-white">{faltas.length}</span>}
           </button>

@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", system-ui, sans-serif;
+  --color-ground: #111B24;
+  --color-surface: #1B2832;
+  --color-raised: #22323E;
+  --color-line: #33475A;
+  --color-ink: #F1F5F8;
+  --color-mute: #8EA3B5;
+  --color-sol: #FFC800;
+  --color-sol-dark: #D29C00;
+  --color-sol-soft: #3A3315;
+  --color-wine: #E0455F;
+  --color-wine-dark: #A82B42;
+  --color-wine-soft: #3A1E25;
+  --color-marian: #3D8BFF;
+  --color-marian-dark: #2361C4;
+  --color-olive: #7FB83A;
+  --color-olive-dark: #5A8A26;
+  --color-violet: #8B5CF6;
+  --color-violet-dark: #6236C9;
+}
+
+html { -webkit-tap-highlight-color: transparent; overscroll-behavior: none; color-scheme: dark; }
+body { margin: 0; background: var(--color-ground); color: var(--color-ink); font-family: var(--font-sans); font-weight: 700; }
+input, textarea, select { font-size: 16px; font-family: inherit; }
+button { touch-action: manipulation; user-select: none; -webkit-user-select: none; cursor: pointer; font-family: inherit; }
+.app-h { min-height: 100dvh; }
+.safe-b { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+.safe-t { padding-top: env(safe-area-inset-top); }
+
+/* botões com borda inferior que afunda ao tocar */
+.btn { @apply block w-full rounded-2xl px-5 py-3.5 text-center text-[15px] font-extrabold uppercase tracking-wider border-b-4 transition-[transform,border] duration-75 active:translate-y-[3px] active:border-b-[1px] disabled:active:translate-y-0 disabled:active:border-b-4; }
+.btn-sol { @apply bg-sol text-[#2A2000] border-sol-dark; }
+.btn-sol:disabled { @apply bg-raised text-mute border-raised; }
+.btn-wine { @apply bg-wine text-white border-wine-dark; }
+.btn-marian { @apply bg-marian text-white border-marian-dark; }
+.btn-ghost { @apply bg-transparent text-sol border-2 border-line border-b-4; }
+.btn-claro { @apply bg-white text-ground border-[#C9D2DA]; }
+.card { @apply rounded-2xl border-2 border-line bg-ground; }
+.campo { @apply w-full rounded-2xl border-2 border-line bg-surface px-4 py-3 font-bold text-ink outline-none placeholder:text-mute focus:border-marian; }
+
+@keyframes pula { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+.pula { animation: pula 2.2s ease-in-out infinite; }
+@keyframes balanca { 0%,100% { transform: rotate(-3deg) } 50% { transform: rotate(3deg) } }
+.balanca { animation: balanca 2.6s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes sobe { from { transform: translateY(100%) } to { transform: translateY(0) } }
+.sobe { animation: sobe .25s cubic-bezier(.2,.9,.3,1.2); }
+@keyframes surge { from { opacity: 0; transform: scale(.7) } to { opacity: 1; transform: scale(1) } }
+.surge { animation: surge .45s cubic-bezier(.2,.9,.3,1.3) both; }
+@keyframes brilha { 0%,100% { opacity: .35 } 50% { opacity: 1 } }
+.brilha { animation: brilha 1.8s ease-in-out infinite; }
+@keyframes chama { 0%,100% { transform: scale(1) rotate(-2deg) } 50% { transform: scale(1.08) rotate(2deg) } }
+.chama { animation: chama 1.2s ease-in-out infinite; transform-origin: 50% 100%; }
+@media (prefers-reduced-motion: reduce) { .pula, .balanca, .sobe, .surge, .brilha, .chama { animation: none } }

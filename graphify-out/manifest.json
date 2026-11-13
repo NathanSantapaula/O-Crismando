@@ -1,0 +1,116 @@
+{
+  ".claude/launch.json": {
+    "mtime": 1794583733.4025311,
+    "seen": 1794583992.6169696,
+    "ast_hash": "3199770d10b4faac91d9f6d8657a9531",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1794583368.063408,
+    "seen": 1794583992.6169696,
+    "ast_hash": "f889d7b83e299e4f1788360d8cf7707c",
+    "semantic_hash": ""
+  },
+  "public/sw.js": {
+    "mtime": 1794583446.8832772,
+    "seen": 1794583992.6169696,
+    "ast_hash": "6c10053b21c541a74117ad2fab8be576",
+    "semantic_hash": ""
+  },
+  "src/App.jsx": {
+    "mtime": 1794585183.6553395,
+    "seen": 1794585392.022923,
+    "ast_hash": "2ca10bacff0c498425e5347717fe1da1",
+    "semantic_hash": ""
+  },
+  "src/lib.js": {
+    "mtime": 1794583447.013879,
+    "seen": 1794583992.6169696,
+    "ast_hash": "552d33e36f861a05fb1b2f794af6aba6",
+    "semantic_hash": ""
+  },
+  "src/main.jsx": {
+    "mtime": 1794583446.9651175,
+    "seen": 1794583992.6169696,
+    "ast_hash": "e7841a553c56fd687471ff569b2519b6",
+    "semantic_hash": ""
+  },
+  "src/pages/Login.jsx": {
+    "mtime": 1794584913.9242098,
+    "seen": 1794585392.022923,
+    "ast_hash": "8c9bcdd508f307b58b0ba41a7cfcab88",
+    "semantic_hash": ""
+  },
+  "src/pages/admin/Admin.jsx": {
+    "mtime": 1794585172.097938,
+    "seen": 1794585392.022923,
+    "ast_hash": "e23481da7f121eb56ca214b50aace676",
+    "semantic_hash": ""
+  },
+  "src/pages/aluno/Aluno.jsx": {
+    "mtime": 1794585259.7204652,
+    "seen": 1794585392.022923,
+    "ast_hash": "d26d9e9c5c42c4b623b8b576ebe58660",
+    "semantic_hash": ""
+  },
+  "src/pages/aluno/Licao.jsx": {
+    "mtime": 1794585046.9245932,
+    "seen": 1794585392.022923,
+    "ast_hash": "0a994f873793855e9c51583fe38e198a",
+    "semantic_hash": ""
+  },
+  "vite.config.js": {
+    "mtime": 1794583368.2751381,
+    "seen": 1794583992.6169696,
+    "ast_hash": "f4b4176cc67d97465b3505ed4e606000",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1794583959.480246,
+    "seen": 1794583992.6169696,
+    "ast_hash": "9562174ea144bb4c27480972f74c4142",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1794585183.7466283,
+    "seen": 1794585392.0379105,
+    "ast_hash": "a594ffe836bb8ded3dc218de800604c5",
+    "semantic_hash": ""
+  },
+  "public/arte/LEIA-ME.txt": {
+    "mtime": 1794583446.928188,
+    "seen": 1794583992.6169696,
+    "ast_hash": "68f951d47067639c59994a76c871648c",
+    "semantic_hash": ""
+  },
+  "public/icon.svg": {
+    "mtime": 1794585183.784239,
+    "seen": 1794585392.0379105,
+    "ast_hash": "0e2253c9a67c169f46e95dc1fc4ce49b",
+    "semantic_hash": ""
+  },
+  "src/components/Icones.jsx": {
+    "mtime": 1794585291.513329,
+    "seen": 1794585392.022923,
+    "ast_hash": "27e90e2e5c517ec5a297f7bc77105369",
+    "semantic_hash": ""
+  },
+  "src/components/Personagem.jsx": {
+    "mtime": 1794584785.3615556,
+    "seen": 1794585392.022923,
+    "ast_hash": "1edbde4951cb7f653f4cb41e86865a8e",
+    "semantic_hash": ""
+  },
+  "src/pages/Galeria.jsx": {
+    "mtime": 1794584757.9307382,
+    "seen": 1794585392.022923,
+    "ast_hash": "f4d8a26e9a199c91c497ab5f3b8bcb3a",
+    "semantic_hash": ""
+  },
+  "src/pages/aluno/Avatar.jsx": {
+    "mtime": 1794585070.4679549,
+    "seen": 1794585392.022923,
+    "ast_hash": "b7858d94dc6ab9bcc5febdb41246dece",
+    "semantic_hash": ""
+  }
+}

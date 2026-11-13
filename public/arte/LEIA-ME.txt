@@ -1,0 +1,7 @@
+Coloque aqui as pinturas (JPG). Nomes usados pelos encontros iniciais:
+criacao-de-adao.jpg   Michelangelo, A Criação de Adão
+sao-jeronimo.jpg      Caravaggio, São Jerônimo escrevendo
+batismo-de-cristo.jpg Piero della Francesca, O Batismo de Cristo
+pentecostes.jpg       El Greco, Pentecostes
+anunciacao.jpg        Fra Angelico, A Anunciação
+Sem o arquivo, o app mostra uma moldura com o crédito da obra.

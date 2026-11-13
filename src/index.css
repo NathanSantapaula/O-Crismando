@@ -54,3 +54,23 @@ button { touch-action: manipulation; user-select: none; -webkit-user-select: non
 @keyframes chama { 0%,100% { transform: scale(1) rotate(-2deg) } 50% { transform: scale(1.08) rotate(2deg) } }
 .chama { animation: chama 1.2s ease-in-out infinite; transform-origin: 50% 100%; }
 @media (prefers-reduced-motion: reduce) { .pula, .balanca, .sobe, .surge, .brilha, .chama { animation: none } }
+
+/* animação dos personagens */
+.p-anima .p-respira { animation: p-respira 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.p-anima .p-cabeca { animation: p-cabeca 4.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.p-anima .p-pisca { animation: p-pisca 4.6s infinite; transform-box: fill-box; transform-origin: 50% 50%; }
+.p-anima .p-braco-e { animation: p-braco 3.4s ease-in-out infinite; transform-box: view-box; transform-origin: 80px 150px; }
+.p-anima .p-braco-d { animation: p-braco 3.4s ease-in-out infinite reverse; transform-box: view-box; transform-origin: 120px 150px; }
+.p-anima .p-raios { animation: p-raios 2.4s ease-in-out infinite; }
+.p-anima .p-fogo { animation: p-fogo 1.1s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.p-anima .p-flutua { animation: p-flutua 3s ease-in-out infinite; }
+.p-anima .p-brilho { animation: p-brilho 2.8s ease-in-out infinite; }
+@keyframes p-respira { 0%,100% { transform: scaleY(1) } 50% { transform: scaleY(1.015) } }
+@keyframes p-cabeca { 0%,100% { transform: rotate(-2deg) translateY(0) } 50% { transform: rotate(2deg) translateY(-1.5px) } }
+@keyframes p-pisca { 0%,90%,100% { transform: scaleY(1) } 94% { transform: scaleY(.1) } }
+@keyframes p-braco { 0%,100% { transform: rotate(0) } 50% { transform: rotate(-5deg) } }
+@keyframes p-raios { 0%,100% { opacity: .55 } 50% { opacity: 1 } }
+@keyframes p-fogo { 0%,100% { transform: scale(1,1) } 50% { transform: scale(1.06,1.14) } }
+@keyframes p-flutua { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+@keyframes p-brilho { 0%,100% { filter: brightness(1) } 50% { filter: brightness(1.25) } }
+@media (prefers-reduced-motion: reduce) { .p-anima * { animation: none !important } }

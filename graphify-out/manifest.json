@@ -48,9 +48,9 @@
     "semantic_hash": ""
   },
   "src/pages/aluno/Aluno.jsx": {
-    "mtime": 1794585259.7204652,
-    "seen": 1794585392.022923,
-    "ast_hash": "d26d9e9c5c42c4b623b8b576ebe58660",
+    "mtime": 1794588307.8258302,
+    "seen": 1794588322.2060695,
+    "ast_hash": "553a5e2bbe6f0d171408f89038663d19",
     "semantic_hash": ""
   },
   "src/pages/aluno/Licao.jsx": {
@@ -96,15 +96,15 @@
     "semantic_hash": ""
   },
   "src/components/Personagem.jsx": {
-    "mtime": 1794584785.3615556,
-    "seen": 1794585392.022923,
-    "ast_hash": "1edbde4951cb7f653f4cb41e86865a8e",
+    "mtime": 1794588249.4898376,
+    "seen": 1794588293.178501,
+    "ast_hash": "270bb6af6b2480a2e4c7d5a6bd2b4f76",
     "semantic_hash": ""
   },
   "src/pages/Galeria.jsx": {
-    "mtime": 1794584757.9307382,
-    "seen": 1794585392.022923,
-    "ast_hash": "f4d8a26e9a199c91c497ab5f3b8bcb3a",
+    "mtime": 1794588270.7571597,
+    "seen": 1794588293.178501,
+    "ast_hash": "63b079bcc29c21be50582c3cf93c992b",
     "semantic_hash": ""
   },
   "src/pages/aluno/Avatar.jsx": {

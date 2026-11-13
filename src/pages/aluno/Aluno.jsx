@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Church, Shield, Trophy, Images, NotebookText, Star, BookOpen, Video, HandHeart, Lock, Check, KeyRound, X, Gift, Settings, Shirt, CalendarClock } from 'lucide-react'
-import { sb, hoje, dataBR, AREAS, STATUS } from '../../lib'
+import { sb, hoje, dataBR, AREAS, STATUS, url } from '../../lib'
 import Personagem, { GUIAS, AVATAR_PADRAO, Bandeira } from '../../components/Personagem'
 import { Bau, Chama, Gema, Medalha } from '../../components/Icones'
 import { Balao, Barra } from '../Login'
@@ -160,8 +160,8 @@ function Inicio({ encontros, feito, presenca, faltas, baus, abrir, carregar, cam
                 return (
                   <div key={no.id} className="relative flex flex-col items-center" style={{ transform: `translateX(${x}px)`, zIndex: aberto ? 30 : 1 }}>
                     {k === meio && (
-                      <div className={`pointer-events-none absolute top-0 ${x > 0 ? '-left-48' : '-right-48'}`}>
-                        <Personagem id={e.guia} size={120} humor={!e.liberado ? 'serio' : todas ? 'sorriso' : 'feliz'} className={e.liberado ? 'balanca' : 'opacity-60'} />
+                      <div className={`pointer-events-none absolute top-0 ${x > 0 ? '-left-44' : '-right-44'}`}>
+                        <Personagem id={e.guia} mini size={104} humor={!e.liberado ? 'serio' : todas ? 'sorriso' : 'feliz'} className={e.liberado ? 'balanca' : 'opacity-60'} />
                       </div>
                     )}
                     {ativo && !aberto && <span className="pula absolute -top-12 z-10 whitespace-nowrap rounded-xl border-2 border-line bg-ground px-3 py-1.5 font-extrabold uppercase tracking-wider text-sol">Começar</span>}
@@ -272,7 +272,7 @@ export function Arte({ e, className = '' }) {
   return (
     <figure className={className}>
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border-2 border-line bg-surface">
-        {e.imagem_url && <img src={e.imagem_url} alt={e.imagem_credito || ''} className="absolute inset-0 h-full w-full object-cover" onError={ev => (ev.currentTarget.style.display = 'none')} />}
+        {e.imagem_url && <img src={url(e.imagem_url)} alt={e.imagem_credito || ''} className="absolute inset-0 h-full w-full object-cover" onError={ev => (ev.currentTarget.style.display = 'none')} />}
         <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center text-sol"><Bandeira size={40} /><span>{e.imagem_credito}</span></div>
       </div>
       {e.imagem_credito && <figcaption className="mt-1.5 text-sm text-mute">{e.imagem_credito}</figcaption>}
@@ -404,8 +404,8 @@ function Acervo({ encontros }) {
         {lista.map(e => (
           <button key={e.id} onClick={() => setAberto(e)} className="overflow-hidden rounded-2xl border-2 border-b-4 border-line text-left active:translate-y-[2px]">
             <div className="relative grid aspect-square place-items-center bg-surface">
-              <Personagem id={e.guia} size={84} />
-              {(e.foto_url || e.imagem_url) && <img src={e.foto_url || e.imagem_url} alt="" className="absolute inset-0 h-full w-full object-cover" onError={ev => (ev.currentTarget.style.display = 'none')} />}
+              <Personagem id={e.guia} mini size={80} />
+              {(e.foto_url || e.imagem_url) && <img src={url(e.foto_url || e.imagem_url)} alt="" className="absolute inset-0 h-full w-full object-cover" onError={ev => (ev.currentTarget.style.display = 'none')} />}
             </div>
             <p className="p-3 leading-tight">{e.titulo}<span className="block text-sm text-mute">{dataBR(e.data)}</span></p>
           </button>

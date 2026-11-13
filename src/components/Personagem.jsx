@@ -122,7 +122,7 @@ function CabeloFrente({ c }) {
 
 function Veu({ v, frente }) {
   if (!v) return null
-  if (!frente) return <path d="M54 98Q50 32 100 28 150 32 146 98L160 300Q100 316 40 300Z" fill={v.cor} />
+  if (!frente) return <path d="M54 98Q50 32 100 28 150 32 146 98L164 294Q164 314 142 314H58Q36 314 36 294Z" fill={v.cor} />
   return (
     <g>
       <path d="M58 108Q56 44 100 40 144 44 142 108H134Q134 54 100 52 66 54 66 108Z" fill={v.cor} />
@@ -152,10 +152,10 @@ function Rosto({ s, expressao }) {
     ? <path key={cx} d={`M${cx - 10} ${98}q10-8 20 0`} stroke="#2B211C" strokeWidth="4" fill="none" strokeLinecap="round" />
     : (
       <g key={cx}>
-        <ellipse cx={cx} cy="96" rx="11" ry={ry} fill="#fff" />
-        <circle cx={cx + 2} cy="97" r="7" fill={s.olhos} />
-        <circle cx={cx + 2} cy="97" r="3.4" fill="#1E1611" />
-        <circle cx={cx + 5} cy="93.5" r="2.2" fill="#fff" />
+        <ellipse cx={cx} cy="96" rx="11.5" ry={ry + 0.5} fill="#fff" />
+        <circle cx={cx + 3} cy="97.5" r="7.8" fill={s.olhos} />
+        <circle cx={cx + 3.5} cy="98" r="3.8" fill="#1E1611" />
+        <circle cx={cx + 6.5} cy="93.5" r="2.6" fill="#fff" />
       </g>
     )
   const boca = {
@@ -166,15 +166,15 @@ function Rosto({ s, expressao }) {
   }[expressao] || <path d="M90 117q10 10 20 0" stroke={s.barba && s.barba.estilo !== 'nenhuma' && s.barba.estilo !== 'bigode' ? '#F4D9C9' : '#8A3A30'} strokeWidth="4" fill="none" strokeLinecap="round" />
   const sobrancelha = expressao === 'determinado'
     ? 'M75 80 94 86M125 80 106 86'
-    : expressao === 'triste' ? 'M76 84Q85 78 94 80M124 84Q115 78 106 80' : 'M75 82Q85 76 94 80M125 82Q115 76 106 80'
+    : expressao === 'triste' ? 'M78 82Q85 78 92 79M122 82Q115 78 108 79' : 'M78 80Q85 76 93 78M122 80Q115 76 107 78'
   return (
     <g>
       <g className="p-pisca">{olho(85, true)}{olho(115, false)}</g>
-      <path d={sobrancelha} stroke={sobr} strokeWidth="4.5" fill="none" strokeLinecap="round" />
+      <path d={sobrancelha} stroke={sobr} strokeWidth="6" fill="none" strokeLinecap="round" />
       {s.rugas && <path d="M84 66q16-5 32 0M88 72q12-4 24 0" stroke={sombra} strokeWidth="2.5" fill="none" strokeLinecap="round" />}
-      <path d="M98 102q-4 9 2 11 6-2 2-11Z" fill={sombra} />
-      <ellipse cx="75" cy="112" rx="7" ry="4.5" fill="#F09A8A" opacity=".5" />
-      <ellipse cx="125" cy="112" rx="7" ry="4.5" fill="#F09A8A" opacity=".5" />
+      <path d="M100 99q-7 14-1 17 7 0 6-4-1-6-5-13Z" fill={tom(s.pele, 0.8)} />
+      <ellipse cx="74" cy="110" rx="8.5" ry="6" fill="#F2A08C" opacity=".6" />
+      <ellipse cx="126" cy="110" rx="8.5" ry="6" fill="#F2A08C" opacity=".6" />
       <Barba b={s.barba} />
       {boca}
     </g>
@@ -211,15 +211,15 @@ function Corpo({ s }) {
   return (
     <g>
       {s.veu && <Veu v={s.veu} />}
-      {capa && <path d="M58 146Q100 124 142 146 162 220 160 306 100 320 40 306 38 220 58 146Z" fill={tom(capa, 0.82)} />}
+      {capa && <path d="M54 146Q100 120 146 146 168 220 166 296Q164 316 142 316H58Q36 316 34 296 32 220 54 146Z" fill={tom(capa, 0.8)} />}
       {/* pés */}
       <Pes tipo={s.pes || (longa ? 'sandalia' : 'tenis')} pele={pele} />
       {!longa && <g fill={s.calca || '#4F78A8'}><rect x="72" y="226" width="27" height="98" rx="6" /><rect x="101" y="226" width="27" height="98" rx="6" /><rect x="99" y="226" width="4" height="40" fill={tom(s.calca || '#4F78A8', 0.8)} /></g>}
       <rect x="88" y="120" width="24" height="24" rx="8" fill={tom(pele, 0.88)} />
       {longa ? (
         <g>
-          <path d="M70 138Q100 128 130 138 140 200 142 318H58Q60 200 70 138Z" fill={r.cor} />
-          <path d="M100 132Q118 132 130 138 140 200 142 318H104Z" fill="#000" opacity=".06" />
+          <path d="M66 138Q100 126 134 138 146 200 148 318H52Q54 200 66 138Z" fill={r.cor} />
+          <path d="M100 130Q120 130 134 138 146 200 148 318H104Z" fill="#000" opacity=".06" />
           {r.debrum && <path d="M86 135 100 154 114 135" stroke={r.debrum} strokeWidth="5" fill="none" strokeLinejoin="round" />}
           {r.padrao && <Padrao cor={tom(r.cor, 1.35)} />}
           {r.cinto && <rect x="66" y="208" width="68" height="9" fill={r.cinto} />}
@@ -241,7 +241,7 @@ function Corpo({ s }) {
           <path d="M84 222Q104 206 118 178" stroke={tom(s.manto.cor, 0.75)} strokeWidth="3" fill="none" strokeLinecap="round" />
         </g>
       )}
-      {capa && <g><path d="M60 148Q74 138 86 140 80 220 84 308L44 302Q42 220 60 148Z" fill={capa} /><path d="M140 148Q126 138 114 140 120 220 116 308L156 302Q158 220 140 148Z" fill={tom(capa, 0.9)} /></g>}
+      {capa && <g><path d="M54 148Q72 136 88 140 82 220 86 312H60Q42 312 40 296 38 220 54 148Z" fill={capa} /><path d="M146 148Q128 136 112 140 118 220 114 312H140Q158 312 160 296 162 220 146 148Z" fill={tom(capa, 0.88)} /><path d="M86 160 84 300M114 160 116 300" stroke={tom(capa, 0.72)} strokeWidth="3" strokeLinecap="round" opacity=".6" /></g>}
       {s.capuz && <path d="M70 138Q100 158 130 138L136 150Q100 172 64 150Z" fill={s.capuz} />}
       {s.touca && <path d="M68 124Q100 160 132 124L136 146Q100 170 64 146Z" fill="#F4F1EA" />}
       {s.cordao && <g stroke="#EDE3C8" fill="#EDE3C8"><path d="M62 210Q100 220 138 210" strokeWidth="5" fill="none" /><path d="M84 214v52" strokeWidth="4" />{[236, 248, 260].map(y => <circle key={y} cx="84" cy={y} r="4" />)}</g>}
@@ -255,6 +255,7 @@ function Padrao({ cor }) {
   const losango = (x, y, oco) => <path key={x + '-' + y} d={`M${x} ${y - 9} ${x + 9} ${y} ${x} ${y + 9} ${x - 9} ${y}Z`} fill={oco ? 'none' : cor} stroke={cor} strokeWidth={oco ? 3 : 0} />
   return (
     <g opacity=".85">
+      <path d="M84 146 100 170 116 146M88 176 100 192 112 176" stroke={cor} strokeWidth="3.5" fill="none" />
       {[84, 100, 116].map(x => losango(x, 238))}
       {[84, 100, 116].map(x => losango(x, 262, true))}
       <rect x="60" y="280" width="80" height="4" fill={cor} />
@@ -381,9 +382,9 @@ export default function Personagem({ id, spec, humor, size = 120, sombra = true,
   const expressao = humor || s.expressao || 'feliz'
   const itens = s.itens || []
   // mini: cabeça maior e corpo encolhido (estilo das miniaturas da trilha)
-  const tCabeca = mini ? 'translate(100 132) scale(1.22) translate(-100 -132)' : undefined
+  const tCabeca = `translate(100 132) scale(${mini ? 1.34 : 1.13}) translate(-100 -132)`
   const tCorpo = mini ? 'translate(100 132) scale(.6) translate(-100 -132)' : undefined
-  const vb = busto ? '36 10 128 134' : mini ? '0 -20 200 278' : '0 0 200 346'
+  const vb = busto ? '30 -4 140 148' : mini ? '0 -36 200 294' : '0 -14 200 360'
   const [w, h] = vb.split(' ').slice(2).map(Number)
   return (
     <svg viewBox={vb} width={size} height={(size * h) / w} className={`${animado ? 'p-anima' : ''} ${className}`} role="img" aria-label={s.nome || 'Avatar'}>

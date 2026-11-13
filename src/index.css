@@ -125,3 +125,7 @@ button { touch-action: manipulation; user-select: none; -webkit-user-select: non
 .jv-balao { animation: jv-balao .25s ease-out; }
 @keyframes jv-balao { from { opacity: 0; transform: translate(-50%, -90%) scale(.9); } }
 @media (prefers-reduced-motion: reduce) { .jv *, .jv-balao { animation: none !important; } }
+/* brilho que pulsa atrás da lição atual */
+@keyframes brilho-no { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--cor) 55%, transparent) } 100% { box-shadow: 0 0 0 22px transparent } }
+.brilho-no { animation: brilho-no 1.8s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) { .brilho-no { animation: none } }

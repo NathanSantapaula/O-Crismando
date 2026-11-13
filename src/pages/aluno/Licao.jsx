@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { som } from '../../sons'
 import { X, Heart, CheckCircle2, XCircle, Target, Zap } from 'lucide-react'
 import { sb } from '../../lib'
 import Personagem from '../../components/Personagem'
@@ -32,6 +33,7 @@ export default function Licao({ licao, encontro: e, metricas, conquistas, trofeu
 
   function verificar() {
     setVerificado(true)
+    som(certo ? 'certo' : 'errado')
     if (certo) setAcertos(a => a + 1); else setVidas(v => v - 1)
   }
   function continuar() {
@@ -39,6 +41,11 @@ export default function Licao({ licao, encontro: e, metricas, conquistas, trofeu
     if (passo + 1 >= total) return concluir(acertos)
     setPasso(p => p + 1)
   }
+
+  // som de cada tela final (conclusão, ofensiva, troféu) e de vidas esgotadas
+  const telaAtual = fim?.telas[0]
+  useEffect(() => { if (telaAtual) som(telaAtual === 'ofensiva' ? 'ofensiva' : telaAtual.trofeu ? 'trofeu' : 'concluir') }, [telaAtual])
+  useEffect(() => { if (vidas <= 0) som('semVidas') }, [vidas])
 
   if (vidas <= 0) return (
     <Tela onFechar={onFim} rotulo="Voltar à trilha">
@@ -111,7 +118,7 @@ export default function Licao({ licao, encontro: e, metricas, conquistas, trofeu
                   : verificado && marcado ? 'border-wine bg-wine-soft text-wine'
                   : marcado ? 'border-marian bg-[#16304F] text-[#9CC5FF]' : 'border-line'
                 return (
-                  <button key={i} disabled={verificado} onClick={() => setEscolha(i)}
+                  <button key={i} disabled={verificado} onClick={() => { som('selecionar'); setEscolha(i) }}
                     className={`flex w-full items-center gap-4 rounded-2xl border-2 border-b-4 px-4 py-4 text-left text-lg active:translate-y-[2px] ${cor}`}>
                     <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border-2 border-current text-sm opacity-80">{i + 1}</span>{o}
                   </button>

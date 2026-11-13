@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Church, Shield, Trophy, Images, NotebookText, Star, BookOpen, Video, HandHeart, Lock, Check, KeyRound, X, Gift, Settings, Shirt, CalendarClock } from 'lucide-react'
 import { sb, hoje, dataBR, AREAS, STATUS, url } from '../../lib'
 import Personagem, { GUIAS, AVATAR_PADRAO, Marca } from '../../components/Personagem'
 import { Bau, Chama, Gema, Medalha, NavIcone } from '../../components/Icones'
 import { Balao, Barra } from '../Login'
 import Licao from './Licao'
+import { som, somLigado, alternarSom } from '../../sons'
 import Avatar from './Avatar'
 
 // cores de unidade: amarelo (destaque), vinho, azul mariano, oliva, violeta
@@ -41,6 +42,13 @@ export default function Aluno({ perfil, recarregar }) {
     try { if (dados.campanha && localStorage.getItem('campanha-vista') !== hoje()) { setCampanhaAberta(true); localStorage.setItem('campanha-vista', hoje()) } } catch {}
   }
   useEffect(() => { carregar() }, [])
+  const topoRef = useRef(null)
+  useEffect(() => {
+    const el = topoRef.current; if (!el) return
+    const medir = () => document.documentElement.style.setProperty('--topo', `${el.offsetHeight}px`)
+    medir(); const ro = new ResizeObserver(medir); ro.observe(el)
+    return () => ro.disconnect()
+  }, [d, aba])
 
   if (editarAvatar) return <Avatar perfil={perfil} onFim={() => { setEditarAvatar(false); recarregar() }} />
   if (licao) return <Licao {...licao} metricas={d.metricas} conquistas={d.conquistas} trofeus={d.trofeus} onFim={() => { setLicao(null); carregar(); recarregar() }} />
@@ -64,7 +72,7 @@ export default function Aluno({ perfil, recarregar }) {
   return (
     <div className="app-h mx-auto max-w-[620px]">
       {aba !== 'perfil' && (
-        <header className="safe-t sticky top-0 z-20 flex items-center justify-between bg-ground px-5 py-3">
+        <header ref={topoRef} className="safe-t sticky top-0 z-20 flex items-center justify-between bg-ground px-5 py-3">
           <span className="flex items-center gap-2 text-lg"><Marca size={38} /> {encontrosFeitos}</span>
           <span className="flex items-center gap-1.5 text-lg" title="Semanas seguidas com lição" style={{ color: d.metricas.semana_feita ? '#FF9600' : '#55687A' }}>
             <Chama size={24} acesa={d.metricas.semana_feita} className={d.metricas.semana_feita ? 'chama' : ''} /> {d.metricas.streak || 0}
@@ -136,12 +144,20 @@ function Inicio({ encontros, feito, presenca, faltas, baus, abrir, carregar, cam
         const meio = Math.floor(nos.length / 2)
         return (
           <section key={e.id} id={`enc-${e.id}`} className="mb-12 scroll-mt-20">
-            <div className={`sticky top-[68px] z-10 flex overflow-hidden rounded-2xl border-b-4 ${cor.bg} ${cor.borda} ${cor.texto}`}>
+            {i > 0 && (
+              <div className="mb-6 flex items-center gap-3 text-mute" aria-hidden="true">
+                <span className="h-0.5 flex-1 rounded bg-line" /><span className="text-sm font-extrabold uppercase tracking-wider">Encontro {e.ordem}</span><span className="h-0.5 flex-1 rounded bg-line" />
+              </div>
+            )}
+            {/* faixa gruda logo abaixo da barra; o fundo cobre o que passa por baixo */}
+            <div className="sticky z-10 -mx-4 bg-ground px-4 pb-2 pt-1" style={{ top: 'var(--topo, 64px)' }}>
+            <div className={`flex overflow-hidden rounded-2xl border-b-4 ${cor.bg} ${cor.borda} ${cor.texto}`}>
               <div className="flex-1 px-4 py-3">
                 <p className="text-[13px] font-extrabold uppercase tracking-wider opacity-75">Encontro {e.ordem} · {e.data ? dataBR(e.data) : 'em breve'}{falta ? ' · falta' : ''}</p>
                 <h2 className="text-xl font-black leading-tight">{e.titulo}</h2>
               </div>
               <button onClick={() => setGuiaDe(e)} aria-label="Guia do encontro" className="grid w-16 place-items-center border-l-2 border-black/15"><NotebookText size={30} /></button>
+            </div>
             </div>
 
             {i === 0 && campanha && (
@@ -152,6 +168,9 @@ function Inicio({ encontros, feito, presenca, faltas, baus, abrir, carregar, cam
             )}
 
             <div className="relative mt-8 flex flex-col items-center gap-5">
+              <div className={`pointer-events-none absolute top-[30%] ${onda(n + meio) > 0 ? 'left-0' : 'right-0'}`}>
+                <Personagem id={e.guia} mini size={96} className={e.liberado ? 'balanca' : 'opacity-50 grayscale'} />
+              </div>
               {nos.map((no, k) => {
                 const x = onda(n++)
                 const aberto = sel?.id === no.id
@@ -159,21 +178,16 @@ function Inicio({ encontros, feito, presenca, faltas, baus, abrir, carregar, cam
                 const ativo = no.tipo === 'licao' && no.id === atual
                 return (
                   <div key={no.id} className="relative flex flex-col items-center" style={{ transform: `translateX(${x}px)`, zIndex: aberto ? 30 : 1 }}>
-                    {k === meio && (
-                      <div className={`pointer-events-none absolute top-0 ${x > 0 ? '-left-44' : '-right-44'}`}>
-                        <Personagem id={e.guia} mini size={104} humor={!e.liberado ? 'serio' : todas ? 'sorriso' : 'feliz'} className={e.liberado ? 'balanca' : 'opacity-60'} />
-                      </div>
-                    )}
                     {ativo && !aberto && <span className="pula absolute -top-12 z-10 whitespace-nowrap rounded-xl border-2 border-line bg-ground px-3 py-1.5 font-extrabold uppercase tracking-wider text-sol">Começar</span>}
                     {no.tipo === 'bau' ? (
                       <button aria-label={no.ok ? 'Baú aberto' : 'Baú do encontro'} disabled={no.bloq || no.ok}
-                        onClick={async () => { if (await sb.rpc('abrir_bau', { p_encontro: e.id }).then(r => r.data)) { setBauAberto(e); carregar() } }}
+                        onClick={async () => { if (await sb.rpc('abrir_bau', { p_encontro: e.id }).then(r => r.data)) { som('bau'); setBauAberto(e); carregar() } }}
                         className={`transition-transform active:scale-95 ${!no.bloq && !no.ok ? 'pula' : ''}`}>
                         <Bau aberto={no.ok} apagado={no.bloq && !no.ok} size={78} />
                       </button>
                     ) : (
                       <No cor={corNo} ativo={ativo} ok={no.ok} rotulo={no.tipo === 'licao' ? `${no.l.titulo}` : 'Presença'}
-                        onClick={() => setSel(aberto ? null : no)}>
+                        onClick={() => { som('toque'); setSel(aberto ? null : no) }}>
                         {no.bloq && !no.ok ? <Lock size={30} strokeWidth={3} /> : no.tipo === 'presenca' ? (no.ok ? <Check size={36} strokeWidth={4} /> : <KeyRound size={32} strokeWidth={3} />) : (() => { const I = no.ok ? Check : ICONE_LICAO[no.l.tipo] || Star; return <I size={34} strokeWidth={no.ok ? 4 : 2.6} fill={!no.ok && no.l.tipo === 'quiz' ? 'currentColor' : 'none'} /> })()}
                       </No>
                     )}
@@ -226,6 +240,7 @@ export function No({ cor, ok, ativo, children, onClick, rotulo }) {
           <path d="M53 5a48 44 0 0 1 48 44" fill="none" stroke={cor.no} strokeWidth="8" strokeLinecap="round" />
         </svg>
       )}
+      {ativo && <span className="brilho-no pointer-events-none absolute left-0 top-0 h-[68px] w-[78px] rounded-[50%]" style={{ '--cor': cor.no }} />}
       <button onClick={onClick} aria-label={rotulo + (ok ? ', concluída' : '')}
         className="relative grid h-[68px] w-[78px] place-items-center rounded-[50%] text-white transition-transform active:translate-y-[6px]"
         style={{ background: cor.no, boxShadow: `0 8px 0 ${cor.noEsc}` }}>
@@ -293,7 +308,7 @@ function Codigo({ e, fechar, ok }) {
   async function enviar(ev) {
     ev.preventDefault(); setErro('')
     const { data } = await sb.rpc('registrar_presenca', { p_encontro: e.id, p_codigo: codigo })
-    data ? ok() : setErro('Código inválido. Confira com seu catequista.')
+    data ? (som('presenca'), ok()) : (som('errado'), setErro('Código inválido. Confira com seu catequista.'))
   }
   return (
     <div className="fixed inset-0 z-40 flex items-end bg-black/60" onClick={fechar}>
@@ -425,6 +440,17 @@ function Acervo({ encontros }) {
 
 /* ---------------- Perfil ---------------- */
 
+function BotaoSom() {
+  const [ligado, setLigado] = useState(somLigado())
+  return (
+    <button onClick={() => { const v = alternarSom(); setLigado(v); if (v) som('certo') }}
+      className="mt-7 flex w-full items-center justify-between rounded-2xl border-2 border-b-4 border-line px-4 py-3 active:translate-y-[2px]">
+      <span className="text-lg">Sons e vibração</span>
+      <span className={`rounded-xl px-3 py-1 font-extrabold uppercase ${ligado ? 'bg-sol text-[#2A2000]' : 'bg-raised text-mute'}`}>{ligado ? 'Ligado' : 'Desligado'}</span>
+    </button>
+  )
+}
+
 function Perfil({ perfil, avatar, metricas, conquistas, trofeus, presencas, setEditarAvatar }) {
   const [metas, setMetas] = useState([])
   useEffect(() => { sb.from('pdi_metas').select('*').eq('aluno_id', perfil.id).order('created_at').then(({ data }) => setMetas(data || [])) }, [])
@@ -457,6 +483,7 @@ function Perfil({ perfil, avatar, metricas, conquistas, trofeus, presencas, setE
         <div className="mt-3 flex flex-wrap gap-2">
           {trofeus.map(t => <div key={t.id} title={t.titulo}><Medalha icone={t.icone} ativo={conquistas.some(c => c.trofeu_id === t.id)} size={54} /></div>)}
         </div>
+        <BotaoSom />
         <h2 className="mt-7 text-xl font-black">Meu plano de vida</h2>
         <div className="mt-3 space-y-2">
           {metas.length === 0 && <p className="text-mute">Seu catequista ainda não definiu metas com você.</p>}

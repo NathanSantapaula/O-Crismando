@@ -16,6 +16,7 @@ export default function Licao({ licao, encontro: e, metricas, conquistas, trofeu
   const [verificado, setVerificado] = useState(false)
   const [acertos, setAcertos] = useState(0)
   const [vidas, setVidas] = useState(5)
+  const [combo, setCombo] = useState(0) // acertos seguidos
   const [fim, setFim] = useState(null) // { resultado, telas: [] }
 
   const q = perguntas[passo]
@@ -33,7 +34,9 @@ export default function Licao({ licao, encontro: e, metricas, conquistas, trofeu
 
   function verificar() {
     setVerificado(true)
-    som(certo ? 'certo' : 'errado')
+    const novo = certo ? combo + 1 : 0
+    setCombo(novo)
+    som(certo ? (novo >= 3 ? 'trofeu' : 'certo') : 'errado')
     if (certo) setAcertos(a => a + 1); else setVidas(v => v - 1)
   }
   function continuar() {
@@ -108,7 +111,10 @@ export default function Licao({ licao, encontro: e, metricas, conquistas, trofeu
           </>
         ) : (
           <>
-            <h1 className="text-2xl font-black">Selecione a resposta certa</h1>
+            <div className="flex items-center justify-between gap-2">
+              <h1 className="text-2xl font-black">Selecione a resposta certa</h1>
+              {combo >= 2 && <span key={combo} className="surge shrink-0 rounded-full bg-[#FF9600] px-3 py-1 text-sm font-black uppercase text-white">{combo} seguidas!</span>}
+            </div>
             {q.imagem_url && <Arte e={{ imagem_url: q.imagem_url, imagem_credito: q.imagem_credito }} className="mt-4" />}
             <div className="mt-5 flex items-center gap-3"><Personagem id={e.guia} busto size={86} className="shrink-0" /><Balao seta="esquerda" key={passo} className="surge">{q.enunciado}</Balao></div>
             <div className="mt-6 space-y-3">

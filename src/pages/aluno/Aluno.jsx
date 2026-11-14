@@ -3,6 +3,7 @@ import { Church, Shield, Trophy, Images, NotebookText, Star, BookOpen, Video, Ha
 import { sb, hoje, dataBR, AREAS, STATUS, url } from '../../lib'
 import Personagem, { GUIAS, AVATAR_PADRAO, Marca, Bandeira } from '../../components/Personagem'
 import Objeto, { ORDEM_OBJETOS, nomeObjeto } from '../../components/Objetos'
+import { normalizar } from '../../components/Boneco'
 import { Bau, Chama, Gema, Medalha, NavIcone } from '../../components/Icones'
 import { Balao, Barra } from '../Login'
 import Licao from './Licao'
@@ -588,7 +589,8 @@ function Perfil({ perfil, avatar, metricas, conquistas, trofeus, presencas, setE
   ]
   return (
     <div>
-      <div className="safe-t bg-[#E5E9EC] text-ground">
+      <div className="safe-t relative overflow-hidden text-white" style={{ background: normalizar(perfil.avatar).fundo }}>
+        <div className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-white/15" /><div className="pointer-events-none absolute -bottom-16 -right-10 h-48 w-48 rounded-full bg-black/10" />
         <div className="flex items-center justify-between px-5 pt-4">
           <h1 className="text-2xl font-black">{perfil.nome || 'Crismando'}</h1>
           <div className="flex gap-4">

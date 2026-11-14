@@ -56,31 +56,52 @@ const tom = (hex, k) => {
   return `#${c(16)}${c(8)}${c(0)}`
 }
 
-/* ---------- cabelo ---------- */
-function CabeloAtras({ e, c }) {
+/* ---------- cabelo: desenhado a partir da caixa da cabeça escolhida, então serve em todas ---------- */
+// h = { x, y, width, height, rx } da cabeça
+function capa(h, frac, borda) {
+  const { x, y, width: w, height: a } = h, Y = y + a * frac, r = Math.min(h.rx + 2, a * frac)
+  return `M${x - 2} ${Y}V${y + r - 2}A${r} ${r} 0 0 1 ${x - 2 + r} ${y - 2}H${x + w + 2 - r}A${r} ${r} 0 0 1 ${x + w + 2} ${y + r - 2}V${Y}${borda(x, y, w, Y)}Z`
+}
+const franja = (x, y, w, Y) => `Q${x + w * 0.82} ${Y - 18} ${x + w * 0.64} ${Y - 10}Q${x + w * 0.5} ${Y - 2} ${x + w * 0.36} ${Y - 13}Q${x + w * 0.18} ${Y - 22} ${x - 2} ${Y}`
+const risca = (x, y, w, Y) => `Q${x + w * 0.74} ${Y - 26} ${x + w / 2 + 3} ${Y - 34}L${x + w / 2} ${Y - 26}L${x + w / 2 - 3} ${Y - 34}Q${x + w * 0.26} ${Y - 26} ${x - 2} ${Y}`
+const reta = (x, y, w, Y) => `Q${x + w / 2} ${Y - 10} ${x - 2} ${Y}`
+
+function CabeloAtras({ e, c, h }) {
+  const { x, y, width: w, height: a } = h, cx = x + w / 2
   switch (e) {
-    case 'longo': return <path d="M28 66Q26 18 80 16q54 2 52 50l4 64q-10 8-20 0V82H44v48q-10 8-20 0Z" fill={c} />
-    case 'rabo': return <path d="M122 46q30 10 22 54-4 14-14 10 8-30-12-44Z" fill={c} />
-    case 'trancas': return <g fill={c}>{[34, 126].map(x => <g key={x}>{[0, 1, 2, 3].map(i => <ellipse key={i} cx={x} cy={84 + i * 14} rx="9" ry="8" />)}</g>)}</g>
-    case 'blackpower': return <circle cx="80" cy="50" r="60" fill={c} />
-    case 'coque': return <circle cx="80" cy="12" r="17" fill={c} />
+    case 'longo': return <path d={`M${x - 7} ${y + a * 0.3}Q${x - 8} ${y - 6} ${cx} ${y - 7}Q${x + w + 8} ${y - 6} ${x + w + 7} ${y + a * 0.3}V${y + a + 30}q-${w * 0.13} 12-${w * 0.26} 0V${y + a * 0.62}H${x + w * 0.26}V${y + a + 30}q-${w * 0.13} 12-${w * 0.26} 0Z`} fill={c} />
+    case 'rabo': return <path d={`M${x + w - 6} ${y + a * 0.22}q34 4 30 46-2 22-14 30 4-30-20-50Z`} fill={c} />
+    case 'trancas': return <g fill={c}>{[x - 3, x + w + 3].map(bx => <g key={bx}>{[0, 1, 2, 3].map(i => <ellipse key={i} cx={bx} cy={y + a * 0.62 + i * 14} rx="8.5" ry="8" />)}</g>)}</g>
+    case 'blackpower': return <ellipse cx={cx} cy={y + a * 0.36} rx={w * 0.64} ry={a * 0.6} fill={c} />
+    case 'coque': return <circle cx={cx} cy={y - 8} r="16" fill={c} />
     default: return null
   }
 }
-function CabeloFrente({ e, c }) {
-  const s = tom(c, 0.82)
+
+function CabeloFrente({ e, c, h }) {
+  const { x, y, width: w, height: a } = h, cx = x + w / 2, s = tom(c, 0.82)
   switch (e) {
-    case 'curto': return <path d="M30 60Q28 14 80 13q52 1 50 47-6-18-22-22-12 8-30 4-14-4-26 4-14 6-22 14Z" fill={c} />
-    case 'topete': return <g><path d="M30 60Q28 22 60 14q8-12 32-10 30 6 38 30 4 12 0 26-8-18-26-22-18 2-32-2-20 4-42 24Z" fill={c} /><path d="M66 12q14-10 30-4" stroke={s} strokeWidth="5" fill="none" strokeLinecap="round" /></g>
-    case 'anime': return <path d="M26 66 20 38l18 6-4-26 22 14 2-28 18 22 14-24 6 28 22-14-6 26 18-4-8 26q-6-16-22-20-16 6-34 2-18-2-32 6-12 8-16 14Z" fill={c} />
-    case 'cacheado': return <g fill={c}>{[[34, 52], [44, 34], [62, 22], [82, 18], [102, 22], [118, 34], [128, 52]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r="15" />)}</g>
-    case 'blackpower': return <path d="M30 60Q30 24 80 22q50 2 50 38-8-12-18-14-4 6-12 2-6 6-14 2-8 6-14 0-8 4-14-2-10 2-22 12Z" fill={c} />
+    case 'curto': return <path d={capa(h, 0.4, franja)} fill={c} />
+    case 'topete': return <g><path d={capa(h, 0.38, franja)} fill={c} /><ellipse cx={x + w * 0.42} cy={y - 4} rx={w * 0.26} ry="15" fill={c} /><path d={`M${x + w * 0.3} ${y - 8}q${w * 0.14}-12 ${w * 0.3}-4`} stroke={s} strokeWidth="4" fill="none" strokeLinecap="round" /></g>
+    case 'anime': return (
+      <g fill={c}>
+        <path d={capa(h, 0.42, (X, Y0, W, Y) => `L${X + W * 0.84} ${Y - 16}L${X + W * 0.7} ${Y + 2}L${X + W * 0.56} ${Y - 14}L${X + W * 0.42} ${Y + 4}L${X + W * 0.28} ${Y - 14}L${X + W * 0.14} ${Y + 2}L${X - 2} ${Y - 6}`)} />
+        {[0.08, 0.26, 0.46, 0.66, 0.86].map((t, i) => <path key={i} d={`M${x + w * (t - 0.1)} ${y + 8}L${x + w * t + (i % 2 ? 4 : -4)} ${y - 20 + (i === 2 ? -6 : 0)}L${x + w * (t + 0.1)} ${y + 8}Z`} />)}
+      </g>
+    )
+    case 'cacheado': return (
+      <g fill={c}>
+        <path d={capa(h, 0.24, reta)} />
+        {[0, 1, 2, 3, 4, 5, 6].map(t => { const k = Math.abs(t - 3) / 3; return <circle key={t} cx={x + w * (0.04 + 0.92 * t / 6)} cy={y + 4 + k * k * Math.min(h.rx, 30) * 0.9} r={w * 0.13} /> })}
+      </g>
+    )
+    case 'blackpower': return <path d={capa(h, 0.3, (X, Y0, W, Y) => `Q${X + W * 0.75} ${Y - 10} ${X + W * 0.62} ${Y - 4}Q${X + W / 2} ${Y - 12} ${X + W * 0.38} ${Y - 4}Q${X + W * 0.25} ${Y - 10} ${X - 2} ${Y}`)} fill={c} />
     case 'longo':
     case 'rabo':
     case 'trancas':
-    case 'coque': return <path d="M30 62Q28 14 80 13q52 1 50 49-10-20-50-22-40 2-50 22Z" fill={c} />
-    case 'moicano': return <path d="M66 46Q64 8 80-2q16 10 14 48Z" fill={c} />
-    case 'raspado': return <path d="M32 50Q34 16 80 15q46 1 48 35-20-14-48-14-28 0-48 14Z" fill={c} opacity=".45" />
+    case 'coque': return <path d={capa(h, 0.44, risca)} fill={c} />
+    case 'moicano': return <path d={`M${cx - 12} ${y + a * 0.34}Q${cx - 14} ${y - 12} ${cx} ${y - 22}Q${cx + 14} ${y - 12} ${cx + 12} ${y + a * 0.34}Z`} fill={c} />
+    case 'raspado': return <path d={capa(h, 0.32, reta)} fill={c} opacity=".45" />
     default: return null
   }
 }
@@ -248,7 +269,7 @@ export default function Boneco({ spec, size = 120, busto = false, fundo = false,
       {!busto && <ellipse cx="80" cy="190" rx="48" ry="7" fill="#000" opacity=".22" />}
       <ExtraAtras id={b.extra} b={b} />
       {/* cabelo e chapéu esticam junto com o formato da cabeça (foram desenhados para a redonda) */}
-      <g transform={ajusteCabeca(b.formato)}><CabeloAtras e={b.cabelo} c={b.corCabelo} /></g>
+      <CabeloAtras e={b.cabelo} c={b.corCabelo} h={CABECA[b.formato] || CABECA.redonda} />
       <g transform={`translate(80 114) scale(${(CORPO[b.corpo] || CORPO.padrao).join(' ')}) translate(-80 -114)`}>
         <Corpo b={b} />
         <Bracos b={b} />
@@ -257,7 +278,7 @@ export default function Boneco({ spec, size = 120, busto = false, fundo = false,
       {(() => { const h = CABECA[b.formato] || CABECA.redonda; return <><circle cx={h.x} cy="72" r="10" fill={tom(b.pele, 0.92)} /><circle cx={h.x + h.width} cy="72" r="10" fill={tom(b.pele, 0.92)} /></> })()}
       <rect {...CABECA[b.formato] || CABECA.redonda} fill={b.pele} />
       <path d="M80 16h6c24 0 44 20 44 44v10c0 24-20 44-44 44h-6Z" fill="#000" opacity=".035" />
-      <g transform={ajusteCabeca(b.formato)}><CabeloFrente e={b.cabelo} c={b.corCabelo} /></g>
+      <CabeloFrente e={b.cabelo} c={b.corCabelo} h={CABECA[b.formato] || CABECA.redonda} />
       <Rosto b={b} />
       <Olhar b={b} />
       <Nariz b={b} />
